@@ -204,6 +204,65 @@
   </entry>
   
   <entry>
+    <title>mysql的一些函数</title>
+    <link href="http://blog.boshu.org/2015/09/2015-09-mysql-function/"/>
+    <id>http://blog.boshu.org/2015/09/2015-09-mysql-function/</id>
+    <published>2015-09-23T15:10:52.000Z</published>
+    <updated>2017-03-06T15:16:04.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="字符串函数"><a href="#字符串函数" class="headerlink" title="字符串函数"></a>字符串函数</h1><p>concat 连接字符串<br>RTrim 删除右边的空格<br>upper 转为大写<br>left 返回字符串左边的字符<br>length 返回字符串的长度<br>locate 查找子字符串<br>lower 转为小写<br>LTrim 去掉左边的空格<br>Right 返回串右边的字符<br>soundex 返回串的soundex值 将任何文本转为拼音<br>substring 返回子串的字符</p>
+<h1 id="时间和日期处理函数"><a href="#时间和日期处理函数" class="headerlink" title="时间和日期处理函数"></a>时间和日期处理函数</h1><p>addDate()  增加一个日期（天，周等）<br>addTime()  增加一个时间（时，分等）<br>CurDate()  返回当前日期<br>CurTime()  返回当前时间<br>Date()  返回日期时间的日期部分<br>DateDiff() 计算两个日期之差<br>Date_Add() 高度灵活的日期运算函数<br>Date_Format() 返回一个格式格的日期或时间串<br>Day() 返回一个日期的天数部分<br>DayOfWeek() 返回星期几<br>Hour() 返回小时<br>Minute() 返回分钟<br>Mouth() 返回月<br>Now() 返回当前日期和时间<br>Second() 返回秒<br>Time() 返回时间部分<br>Year() 返回年</p>
+<h1 id="常用的数值处理函数"><a href="#常用的数值处理函数" class="headerlink" title="常用的数值处理函数"></a>常用的数值处理函数</h1><p>abs 绝对数<br>cos 余玄<br>exp 指数<br>mod 余数<br>pi 圆周率<br>rand 随机数<br>sin 正玄<br>sqrt 平方根<br>tan 角度的正切</p>
+<h1 id="聚集函数"><a href="#聚集函数" class="headerlink" title="聚集函数"></a>聚集函数</h1><p>avg 平均值<br>count 行数<br>max 最大值<br>min 最小值<br>sum 和</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;字符串函数&quot;&gt;&lt;a href=&quot;#字符串函数&quot; class=&quot;headerlink&quot; title=&quot;字符串函数&quot;&gt;&lt;/a&gt;字符串函数&lt;/h1&gt;&lt;p&gt;concat 连接字符串&lt;br&gt;RTrim 删除右边的空格&lt;br&gt;upper 转为大写&lt;br&gt;left 返回字符串左
+    
+    </summary>
+    
+      <category term="mysql" scheme="http://blog.boshu.org/categories/mysql/"/>
+    
+    
+      <category term="笔记" scheme="http://blog.boshu.org/tags/%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="mysql" scheme="http://blog.boshu.org/tags/mysql/"/>
+    
+      <category term="function" scheme="http://blog.boshu.org/tags/function/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Apache ab 中文注释</title>
+    <link href="http://blog.boshu.org/2015/05/2008-05-apache-ab/"/>
+    <id>http://blog.boshu.org/2015/05/2008-05-apache-ab/</id>
+    <published>2015-05-20T16:00:00.000Z</published>
+    <updated>2017-03-05T12:24:33.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>This is ApacheBench, Version 2.0.40-dev &lt;$Revision: 1.146 $&gt; apache-2.0<br>Copyright 1996 Adam Twiss, Zeus Technology Ltd, <a href="http://www.zeustech.net/" target="_blank" rel="external">http://www.zeustech.net/</a><br>Copyright 1997-2005 The Apache Software Foundation, <a href="http://www.apache.org/" target="_blank" rel="external">http://www.apache.org/</a></p>
+<p>Benchmarking www.google.com (be patient)…..done</p>
+<p>Server Software:        GWS/2.1<br>Server Hostname:        www.google.com<br>Server Port:            80</p>
+<p>Document Path:          /<br>Document Length:        230 bytes</p>
+<p>Concurrency Level:      10<br>/<em>整个测试持续的时间</em>/<br>Time taken for tests:   3.234651 seconds<br>/<em>完成的请求数量</em>/<br>Complete requests:      10<br>/<em>失败的请求数量</em>/<br>Failed requests:        0<br>Write errors:           0<br>Non-2xx responses:      10<br>Keep-Alive requests:    10<br>/<em>整个场景中的网络传输量</em>/<br>Total transferred:      6020 bytes<br>/<em>整个场景中的HTML内容传输量</em>/<br>HTML transferred:       2300 bytes<br>/<em>大家最关心的指标之一，相当于 LR 中的 每秒事务数 ，后面括号中的 mean 表示这是一个平均值</em>/<br>Requests per second:    3.09 [#/sec] (mean)<br>/<em>大家最关心的指标之二，相当于 LR 中的 平均事务响应时间 ，后面括号中的 mean 表示这是一个平均值</em>/<br>Time per request:       3234.651 [ms] (mean)<br>/<em>这个还不知道是什么意思，有知道的朋友请留言，谢谢 ^_^ </em>/<br>Time per request:       323.465 [ms] (mean, across all concurrent requests)<br>/<em>平均每秒网络上的流量，可以帮助排除是否存在网络流量过大导致响应时间延长的问题</em>/<br>Transfer rate:          1.55 [Kbytes/sec] received<br>/<em>网络上消耗的时间的分解，各项数据的具体算法还不是很清楚</em>/<br>Connection Times (ms)<br>              min  mean[+/-sd] median   max<br>Connect:       20  318 926.1     30    2954<br>Processing:    40 2160 1462.0   3034    3154<br>Waiting:       40 2160 1462.0   3034    3154<br>Total:         60 2479 1276.4   3064    3184</p>
+<p>/<em>下面的内容为整个场景中所有请求的响应情况。在场景中每个请求都有一个响应时间，其中 50％ 的用户响应时间小于 3064 毫秒，60 ％ 的用户响应时间小于 3094 毫秒，最大的响应时间小于 3184 毫秒</em>/<br>Percentage of the requests served within a certain time (ms)<br>  50%   3064<br>  66%   3094<br>  75%   3124<br>  80%   3154<br>  90%   3184<br>  95%   3184<br>  98%   3184<br>  99%   3184<br>100%   3184 (longest request)</p>
+<p>-n requests     Number of requests to perform<br>//在测试会话中所执行的请求个数。默认时，仅执行一个请求<br>-c concurrency Number of multiple requests to make<br>//一次产生的请求个数。默认是一次一个。<br>-t timelimit    Seconds to max. wait for responses<br>//测试所进行的最大秒数。其内部隐含值是-n 50000。它可以使对服务器的测试限制在一个固定的总时间以内。默认时，没有时间限制。<br>-p postfile     File containing data to POST<br>//包含了需要POST的数据的文件.<br>-T content-type Content-type header for POSTing<br>//POST数据所使用的Content-type头信息。<br>-v verbosity    How much troubleshooting info to print<br>//设置显示信息的详细程度 - 4或更大值会显示头信息， 3或更大值可以显示响应代码(404, 200等), 2或更大值可以显示警告和其他信息。 -V 显示版本号并退出。<br>-w              Print out results in HTML tables<br>//以HTML表的格式输出结果。默认时，它是白色背景的两列宽度的一张表。<br>-i              Use HEAD instead of GET<br>// 执行HEAD请求，而不是GET。<br>-C attribute    Add cookie, eg. ‘Apache=1234. (repeatable)<br>//-C cookie-name=value 对请求附加一个Cookie:行。 其典型形式是name=value的一个参数对。此参数可以重复。<br>-P attribute    Add Basic Proxy Authentication, the attributes<br>                are a colon separated username and password.<br>//-P proxy-auth-username:password 对一个中转代理提供BASIC认证信任。用户名和密码由一个:隔开，并以base64编码形式发送。无论服务器是否需要(即, 是否发送了401认证需求代码)，此字符串都会被发送。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;This is ApacheBench, Version 2.0.40-dev &amp;lt;$Revision: 1.146 $&amp;gt; apache-2.0&lt;br&gt;Copyright 1996 Adam Twiss, Zeus Technology Ltd, &lt;a href=
+    
+    </summary>
+    
+    
+      <category term="apache" scheme="http://blog.boshu.org/tags/apache/"/>
+    
+      <category term="ab" scheme="http://blog.boshu.org/tags/ab/"/>
+    
+  </entry>
+  
+  <entry>
     <title>linux 文件系统权限笔记</title>
     <link href="http://blog.boshu.org/2015/05/2015-05-linux-permissions/"/>
     <id>http://blog.boshu.org/2015/05/2015-05-linux-permissions/</id>
@@ -241,35 +300,6 @@
       <category term="linux" scheme="http://blog.boshu.org/tags/linux/"/>
     
       <category term="笔记" scheme="http://blog.boshu.org/tags/%E7%AC%94%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Apache ab 中文注释</title>
-    <link href="http://blog.boshu.org/2015/05/2008-05-apache-ab/"/>
-    <id>http://blog.boshu.org/2015/05/2008-05-apache-ab/</id>
-    <published>2015-05-20T16:00:00.000Z</published>
-    <updated>2017-03-05T12:24:33.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>This is ApacheBench, Version 2.0.40-dev &lt;$Revision: 1.146 $&gt; apache-2.0<br>Copyright 1996 Adam Twiss, Zeus Technology Ltd, <a href="http://www.zeustech.net/" target="_blank" rel="external">http://www.zeustech.net/</a><br>Copyright 1997-2005 The Apache Software Foundation, <a href="http://www.apache.org/" target="_blank" rel="external">http://www.apache.org/</a></p>
-<p>Benchmarking www.google.com (be patient)…..done</p>
-<p>Server Software:        GWS/2.1<br>Server Hostname:        www.google.com<br>Server Port:            80</p>
-<p>Document Path:          /<br>Document Length:        230 bytes</p>
-<p>Concurrency Level:      10<br>/<em>整个测试持续的时间</em>/<br>Time taken for tests:   3.234651 seconds<br>/<em>完成的请求数量</em>/<br>Complete requests:      10<br>/<em>失败的请求数量</em>/<br>Failed requests:        0<br>Write errors:           0<br>Non-2xx responses:      10<br>Keep-Alive requests:    10<br>/<em>整个场景中的网络传输量</em>/<br>Total transferred:      6020 bytes<br>/<em>整个场景中的HTML内容传输量</em>/<br>HTML transferred:       2300 bytes<br>/<em>大家最关心的指标之一，相当于 LR 中的 每秒事务数 ，后面括号中的 mean 表示这是一个平均值</em>/<br>Requests per second:    3.09 [#/sec] (mean)<br>/<em>大家最关心的指标之二，相当于 LR 中的 平均事务响应时间 ，后面括号中的 mean 表示这是一个平均值</em>/<br>Time per request:       3234.651 [ms] (mean)<br>/<em>这个还不知道是什么意思，有知道的朋友请留言，谢谢 ^_^ </em>/<br>Time per request:       323.465 [ms] (mean, across all concurrent requests)<br>/<em>平均每秒网络上的流量，可以帮助排除是否存在网络流量过大导致响应时间延长的问题</em>/<br>Transfer rate:          1.55 [Kbytes/sec] received<br>/<em>网络上消耗的时间的分解，各项数据的具体算法还不是很清楚</em>/<br>Connection Times (ms)<br>              min  mean[+/-sd] median   max<br>Connect:       20  318 926.1     30    2954<br>Processing:    40 2160 1462.0   3034    3154<br>Waiting:       40 2160 1462.0   3034    3154<br>Total:         60 2479 1276.4   3064    3184</p>
-<p>/<em>下面的内容为整个场景中所有请求的响应情况。在场景中每个请求都有一个响应时间，其中 50％ 的用户响应时间小于 3064 毫秒，60 ％ 的用户响应时间小于 3094 毫秒，最大的响应时间小于 3184 毫秒</em>/<br>Percentage of the requests served within a certain time (ms)<br>  50%   3064<br>  66%   3094<br>  75%   3124<br>  80%   3154<br>  90%   3184<br>  95%   3184<br>  98%   3184<br>  99%   3184<br>100%   3184 (longest request)</p>
-<p>-n requests     Number of requests to perform<br>//在测试会话中所执行的请求个数。默认时，仅执行一个请求<br>-c concurrency Number of multiple requests to make<br>//一次产生的请求个数。默认是一次一个。<br>-t timelimit    Seconds to max. wait for responses<br>//测试所进行的最大秒数。其内部隐含值是-n 50000。它可以使对服务器的测试限制在一个固定的总时间以内。默认时，没有时间限制。<br>-p postfile     File containing data to POST<br>//包含了需要POST的数据的文件.<br>-T content-type Content-type header for POSTing<br>//POST数据所使用的Content-type头信息。<br>-v verbosity    How much troubleshooting info to print<br>//设置显示信息的详细程度 - 4或更大值会显示头信息， 3或更大值可以显示响应代码(404, 200等), 2或更大值可以显示警告和其他信息。 -V 显示版本号并退出。<br>-w              Print out results in HTML tables<br>//以HTML表的格式输出结果。默认时，它是白色背景的两列宽度的一张表。<br>-i              Use HEAD instead of GET<br>// 执行HEAD请求，而不是GET。<br>-C attribute    Add cookie, eg. ‘Apache=1234. (repeatable)<br>//-C cookie-name=value 对请求附加一个Cookie:行。 其典型形式是name=value的一个参数对。此参数可以重复。<br>-P attribute    Add Basic Proxy Authentication, the attributes<br>                are a colon separated username and password.<br>//-P proxy-auth-username:password 对一个中转代理提供BASIC认证信任。用户名和密码由一个:隔开，并以base64编码形式发送。无论服务器是否需要(即, 是否发送了401认证需求代码)，此字符串都会被发送。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;This is ApacheBench, Version 2.0.40-dev &amp;lt;$Revision: 1.146 $&amp;gt; apache-2.0&lt;br&gt;Copyright 1996 Adam Twiss, Zeus Technology Ltd, &lt;a href=
-    
-    </summary>
-    
-    
-      <category term="apache" scheme="http://blog.boshu.org/tags/apache/"/>
-    
-      <category term="ab" scheme="http://blog.boshu.org/tags/ab/"/>
     
   </entry>
   

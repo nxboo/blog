@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="linux,UUID," />
+  <meta name="keywords" content="笔记,mysql,function," />
 
 
 
@@ -89,16 +89,19 @@
 
 
 
-<meta name="description" content="UUID是什么?UUID(Universally Unique Identifier)全局唯一标识符,是指在一台机器上生成的数字，它保证对在同一时空中的所有机器都是唯一的。按照开放软件基金会(OSF)制定的标准计算，用到了以太网卡地址、纳秒级时间、芯片ID码和许多可能的数字。由以下几部分的组合：当前日期和时间(UUID的第一个部分与时间有关，如果你在生成一个UUID之后，过几秒又生成一个UUID，">
+<meta name="description" content="字符串函数concat 连接字符串RTrim 删除右边的空格upper 转为大写left 返回字符串左边的字符length 返回字符串的长度locate 查找子字符串lower 转为小写LTrim 去掉左边的空格Right 返回串右边的字符soundex 返回串的soundex值 将任何文本转为拼音substring 返回子串的字符
+时间和日期处理函数addDate()  增加一个日期（天，周等）">
 <meta property="og:type" content="article">
-<meta property="og:title" content="设备UUID">
-<meta property="og:url" content="http://blog.boshu.org/2015/04/2008-04-UUID/index.html">
+<meta property="og:title" content="mysql的一些函数">
+<meta property="og:url" content="http://blog.boshu.org/2015/09/2015-09-mysql-function/index.html">
 <meta property="og:site_name" content="Bin blog">
-<meta property="og:description" content="UUID是什么?UUID(Universally Unique Identifier)全局唯一标识符,是指在一台机器上生成的数字，它保证对在同一时空中的所有机器都是唯一的。按照开放软件基金会(OSF)制定的标准计算，用到了以太网卡地址、纳秒级时间、芯片ID码和许多可能的数字。由以下几部分的组合：当前日期和时间(UUID的第一个部分与时间有关，如果你在生成一个UUID之后，过几秒又生成一个UUID，">
-<meta property="og:updated_time" content="2017-03-05T12:42:01.000Z">
+<meta property="og:description" content="字符串函数concat 连接字符串RTrim 删除右边的空格upper 转为大写left 返回字符串左边的字符length 返回字符串的长度locate 查找子字符串lower 转为小写LTrim 去掉左边的空格Right 返回串右边的字符soundex 返回串的soundex值 将任何文本转为拼音substring 返回子串的字符
+时间和日期处理函数addDate()  增加一个日期（天，周等）">
+<meta property="og:updated_time" content="2017-03-06T15:16:04.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="设备UUID">
-<meta name="twitter:description" content="UUID是什么?UUID(Universally Unique Identifier)全局唯一标识符,是指在一台机器上生成的数字，它保证对在同一时空中的所有机器都是唯一的。按照开放软件基金会(OSF)制定的标准计算，用到了以太网卡地址、纳秒级时间、芯片ID码和许多可能的数字。由以下几部分的组合：当前日期和时间(UUID的第一个部分与时间有关，如果你在生成一个UUID之后，过几秒又生成一个UUID，">
+<meta name="twitter:title" content="mysql的一些函数">
+<meta name="twitter:description" content="字符串函数concat 连接字符串RTrim 删除右边的空格upper 转为大写left 返回字符串左边的字符length 返回字符串的长度locate 查找子字符串lower 转为小写LTrim 去掉左边的空格Right 返回串右边的字符soundex 返回串的soundex值 将任何文本转为拼音substring 返回子串的字符
+时间和日期处理函数addDate()  增加一个日期（天，周等）">
 
 
 
@@ -126,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://blog.boshu.org/2015/04/2008-04-UUID/"/>
+  <link rel="canonical" href="http://blog.boshu.org/2015/09/2015-09-mysql-function/"/>
 
 
 
 
 
-  <title> 设备UUID | Bin blog </title>
+  <title> mysql的一些函数 | Bin blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
@@ -261,7 +264,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.boshu.org/2015/04/2008-04-UUID/">
+    <link itemprop="mainEntityOfPage" href="http://blog.boshu.org/2015/09/2015-09-mysql-function/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Bin">
@@ -282,7 +285,7 @@
             
             
               
-                设备UUID
+                mysql的一些函数
               
             
           </h1>
@@ -297,8 +300,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-04-10T00:00:00+08:00">
-                2015-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-09-23T23:10:52+08:00">
+                2015-09-23
               </time>
             
 
@@ -308,6 +311,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -316,8 +341,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2015/04/2008-04-UUID/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/2008-04-UUID/" itemprop="commentCount"></span>
+                <a href="/2015/09/2015-09-mysql-function/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/2015-09-mysql-function/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -343,9 +368,10 @@
       
 
       
-        <h1 id="UUID是什么"><a href="#UUID是什么" class="headerlink" title="UUID是什么?"></a>UUID是什么?</h1><p>UUID(Universally Unique Identifier)全局唯一标识符,是指在一台机器上生成的数字，它保证对在同一时空中的所有机器都是唯一的。按照开放软件基金会(OSF)制定的标准计算，用到了以太网卡地址、纳秒级时间、芯片ID码和许多可能的数字。由以下几部分的组合：当前日期和时间(UUID的第一个部分与时间有关，如果你在生成一个UUID之后，过几秒又生成一个UUID，则第一个部分不同，其余相同)，时钟序列，全局唯一的IEEE机器识别号（如果有网卡，从网卡获得，没有网卡以其他方式获得），UUID的唯一缺陷在于生成的结果串会比较长。</p>
-<h1 id="获取设备的UUID"><a href="#获取设备的UUID" class="headerlink" title="获取设备的UUID"></a>获取设备的UUID</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sudo blkid /dev/sda1</div><div class="line"></div><div class="line">output: </div><div class="line">/dev/sda1: UUID=<span class="string">"7db6e2b8-6821-476e-8dc5-00ab84bd636e"</span> TYPE=<span class="string">"ext2"</span></div></pre></td></tr></table></figure>
-<p>RFC文档 <a href="http://www.ietf.org/rfc/rfc4122.txt" target="_blank" rel="external">http://www.ietf.org/rfc/rfc4122.txt</a></p>
+        <h1 id="字符串函数"><a href="#字符串函数" class="headerlink" title="字符串函数"></a>字符串函数</h1><p>concat 连接字符串<br>RTrim 删除右边的空格<br>upper 转为大写<br>left 返回字符串左边的字符<br>length 返回字符串的长度<br>locate 查找子字符串<br>lower 转为小写<br>LTrim 去掉左边的空格<br>Right 返回串右边的字符<br>soundex 返回串的soundex值 将任何文本转为拼音<br>substring 返回子串的字符</p>
+<h1 id="时间和日期处理函数"><a href="#时间和日期处理函数" class="headerlink" title="时间和日期处理函数"></a>时间和日期处理函数</h1><p>addDate()  增加一个日期（天，周等）<br>addTime()  增加一个时间（时，分等）<br>CurDate()  返回当前日期<br>CurTime()  返回当前时间<br>Date()  返回日期时间的日期部分<br>DateDiff() 计算两个日期之差<br>Date_Add() 高度灵活的日期运算函数<br>Date_Format() 返回一个格式格的日期或时间串<br>Day() 返回一个日期的天数部分<br>DayOfWeek() 返回星期几<br>Hour() 返回小时<br>Minute() 返回分钟<br>Mouth() 返回月<br>Now() 返回当前日期和时间<br>Second() 返回秒<br>Time() 返回时间部分<br>Year() 返回年</p>
+<h1 id="常用的数值处理函数"><a href="#常用的数值处理函数" class="headerlink" title="常用的数值处理函数"></a>常用的数值处理函数</h1><p>abs 绝对数<br>cos 余玄<br>exp 指数<br>mod 余数<br>pi 圆周率<br>rand 随机数<br>sin 正玄<br>sqrt 平方根<br>tan 角度的正切</p>
+<h1 id="聚集函数"><a href="#聚集函数" class="headerlink" title="聚集函数"></a>聚集函数</h1><p>avg 平均值<br>count 行数<br>max 最大值<br>min 最小值<br>sum 和</p>
 
       
     </div>
@@ -369,9 +395,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/linux/" rel="tag"># linux</a>
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
           
-            <a href="/tags/UUID/" rel="tag"># UUID</a>
+            <a href="/tags/mysql/" rel="tag"># mysql</a>
+          
+            <a href="/tags/function/" rel="tag"># function</a>
           
         </div>
       
@@ -384,8 +412,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/04/2008-04-linux-cli/" rel="next" title="Linux的一些命令">
-                <i class="fa fa-chevron-left"></i> Linux的一些命令
+              <a href="/2015/05/2008-05-apache-ab/" rel="next" title="Apache ab 中文注释">
+                <i class="fa fa-chevron-left"></i> Apache ab 中文注释
               </a>
             
           </div>
@@ -394,8 +422,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/05/2015-05-linux-permissions/" rel="prev" title="linux 文件系统权限笔记">
-                linux 文件系统权限笔记 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/09/2016-09-mysql-explain/" rel="prev" title="Mysql性能分析">
+                Mysql性能分析 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -422,8 +450,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/04/2008-04-UUID/"
-           data-title="设备UUID" data-url="http://blog.boshu.org/2015/04/2008-04-UUID/">
+      <div class="ds-thread" data-thread-key="2015/09/2015-09-mysql-function/"
+           data-title="mysql的一些函数" data-url="http://blog.boshu.org/2015/09/2015-09-mysql-function/">
       </div>
     
   </div>
@@ -532,7 +560,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#UUID是什么"><span class="nav-number">1.</span> <span class="nav-text">UUID是什么?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#获取设备的UUID"><span class="nav-number">2.</span> <span class="nav-text">获取设备的UUID</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#字符串函数"><span class="nav-number">1.</span> <span class="nav-text">字符串函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#时间和日期处理函数"><span class="nav-number">2.</span> <span class="nav-text">时间和日期处理函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用的数值处理函数"><span class="nav-number">3.</span> <span class="nav-text">常用的数值处理函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#聚集函数"><span class="nav-number">4.</span> <span class="nav-text">聚集函数</span></a></li></ol></div>
             
 
           </div>
