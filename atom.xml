@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.boshu.org/"/>
-  <updated>2017-03-05T13:47:50.000Z</updated>
+  <updated>2017-03-06T16:16:18.000Z</updated>
   <id>http://blog.boshu.org/</id>
   
   <author>
@@ -14,6 +14,76 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>linux-cli-skill</title>
+    <link href="http://blog.boshu.org/2017/03/linux-cli-skill/"/>
+    <id>http://blog.boshu.org/2017/03/linux-cli-skill/</id>
+    <published>2017-03-06T15:54:52.000Z</published>
+    <updated>2017-03-06T16:16:18.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="一些技巧"><a href="#一些技巧" class="headerlink" title="一些技巧"></a>一些技巧</h1><table>
+<thead>
+<tr>
+<th>技巧</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sudo !!</td>
+<td>以root权限执行上一条命令（注意上一条命令的内容，以免发生意外）</td>
+</tr>
+<tr>
+<td>!+数字</td>
+<td>执行history中相应编号的命令</td>
+</tr>
+<tr>
+<td>^foo^bar</td>
+<td>将上一条命令中的第一个字符串”foo”替换成“bar”后执行</td>
+</tr>
+<tr>
+<td>!!:gs/foo/bar</td>
+<td>将上一条命令中的字符串“foo”全部替换成”bar”，然后执行</td>
+</tr>
+<tr>
+<td>C-x e</td>
+<td>打开编辑器编辑命令，这个编辑器是环境变量中EDITOR的值</td>
+</tr>
+<tr>
+<td>Alt+./ESC+.</td>
+<td>将最近一条命令的参数输出——不是作为结果打印出来，而是在终端提示符后面输出，还可以进行编辑</td>
+</tr>
+</tbody>
+</table>
+<h1 id="一些命令"><a href="#一些命令" class="headerlink" title="一些命令"></a>一些命令</h1><h2 id="查找src目录下有printf这个内容的cpp文件"><a href="#查找src目录下有printf这个内容的cpp文件" class="headerlink" title="查找src目录下有printf这个内容的cpp文件"></a>查找src目录下有printf这个内容的cpp文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grep src/*.cpp <span class="_">-e</span> <span class="built_in">printf</span> | cut <span class="_">-d</span> <span class="string">':'</span> <span class="_">-f</span>1 | uniq</div></pre></td></tr></table></figure>
+<h2 id="按文件大小增序打印出当前目录下的文件名及其文件大小-单位字节）"><a href="#按文件大小增序打印出当前目录下的文件名及其文件大小-单位字节）" class="headerlink" title="按文件大小增序打印出当前目录下的文件名及其文件大小(单位字节）"></a>按文件大小增序打印出当前目录下的文件名及其文件大小(单位字节）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ls <span class="_">-l</span> | sed <span class="string">'1d'</span> | sort -n -k5 | awk <span class="string">'&#123;printf "%15s %10s\n", $9,$5&#125;'</span></div></pre></td></tr></table></figure>
+<h2 id="将当前目录下最大的5个文件移动到-five-biggest-这个目录下"><a href="#将当前目录下最大的5个文件移动到-five-biggest-这个目录下" class="headerlink" title="将当前目录下最大的5个文件移动到 ~/five-biggest/ 这个目录下"></a>将当前目录下最大的5个文件移动到 ~/five-biggest/ 这个目录下</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ls <span class="_">-l</span> | sed <span class="string">'1d'</span> | sort -n -r -k5 | head -n 5 | xargs -I &#123;&#125; mv &#123;&#125; ~/five-biggest/</div></pre></td></tr></table></figure>
+<h2 id="删除文件中的空行"><a href="#删除文件中的空行" class="headerlink" title="删除文件中的空行"></a>删除文件中的空行</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat a.txt | sed <span class="_">-e</span> <span class="string">'/^$/d'</span></div></pre></td></tr></table></figure>
+<h2 id="列出用的最多的命令"><a href="#列出用的最多的命令" class="headerlink" title="列出用的最多的命令"></a>列出用的最多的命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">history</span> -1 | awk <span class="string">'&#123;a[$2]++&#125;END&#123;for(i in a)&#123;print a[i] " " i&#125;&#125;'</span> | sort -rn | head</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;一些技巧&quot;&gt;&lt;a href=&quot;#一些技巧&quot; class=&quot;headerlink&quot; title=&quot;一些技巧&quot;&gt;&lt;/a&gt;一些技巧&lt;/h1&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;技巧&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbod
+    
+    </summary>
+    
+    
+      <category term="linux" scheme="http://blog.boshu.org/tags/linux/"/>
+    
+      <category term="cli" scheme="http://blog.boshu.org/tags/cli/"/>
+    
+      <category term="技巧" scheme="http://blog.boshu.org/tags/%E6%8A%80%E5%B7%A7/"/>
+    
+  </entry>
   
   <entry>
     <title>Nginx fastcgi cache</title>
@@ -372,6 +442,68 @@
       <category term="linux" scheme="http://blog.boshu.org/tags/linux/"/>
     
       <category term="笔记" scheme="http://blog.boshu.org/tags/%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>linux-funny-cli</title>
+    <link href="http://blog.boshu.org/2014/10/2014-10-linux-funny-cli/"/>
+    <id>http://blog.boshu.org/2014/10/2014-10-linux-funny-cli/</id>
+    <published>2014-10-31T15:42:43.000Z</published>
+    <updated>2017-03-06T15:50:43.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>跑火车的sl/LS<br>终端数字雨cmatrix<br>可能是名言警句也可能是逗你玩的笑话的fortune/fortune-zh<br>Linux下的ascii art演示bb<br>互动式小说游戏 adventure<br>cowsay、cowthink、banner、ddate、worms、pig</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;跑火车的sl/LS&lt;br&gt;终端数字雨cmatrix&lt;br&gt;可能是名言警句也可能是逗你玩的笑话的fortune/fortune-zh&lt;br&gt;Linux下的ascii art演示bb&lt;br&gt;互动式小说游戏 adventure&lt;br&gt;cowsay、cowthink、banner、
+    
+    </summary>
+    
+    
+      <category term="linux" scheme="http://blog.boshu.org/tags/linux/"/>
+    
+      <category term="cli" scheme="http://blog.boshu.org/tags/cli/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ubuntu源码编译安装php常见错误解决办法</title>
+    <link href="http://blog.boshu.org/2014/09/2014-09-ubuntu-make-php-error/"/>
+    <id>http://blog.boshu.org/2014/09/2014-09-ubuntu-make-php-error/</id>
+    <published>2014-09-01T15:26:29.000Z</published>
+    <updated>2017-03-06T15:38:31.000Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">./configure –prefix=/usr/<span class="built_in">local</span>/php –with-config-file-path=/etc \</div><div class="line">–with-mysql=/usr/<span class="built_in">local</span>/mysql –with-mysqli=/usr/<span class="built_in">local</span>/mysql/bin/mysql_config \</div><div class="line">–with-iconv-dir=/usr/<span class="built_in">local</span> –with-freetype-dir –with-jpeg-dir</div><div class="line">–with-png-dir –with-zlib –with-libxml-dir=/usr –<span class="built_in">enable</span>-xml \</div><div class="line">–<span class="built_in">disable</span>-rpath –<span class="built_in">enable</span>-safe-mode –<span class="built_in">enable</span>-bcmath –<span class="built_in">enable</span>-shmop \</div><div class="line">–<span class="built_in">enable</span>-sysvsem –<span class="built_in">enable</span>-inline-optimization –with-curl \</div><div class="line">–with-curlwrappers –<span class="built_in">enable</span>-mbregex –<span class="built_in">enable</span>-fpm –<span class="built_in">enable</span>-mbstring \</div><div class="line">–with-mcrypt –with-gd –<span class="built_in">enable</span>-gd-native-ttf –with-openssl \</div><div class="line">–with-mhash –<span class="built_in">enable</span>-pcntl –<span class="built_in">enable</span>-sockets –with-xmlrpc \</div><div class="line">–<span class="built_in">enable</span>-zip  –<span class="built_in">enable</span>-soap</div></pre></td></tr></table></figure>
+<p>出现得错误如下：<br>错误一：<br>configure: error: xml2-config not found. Please check your libxml2 installation.<br>而我已经安装过了libxml2,但是还是有这个提示：<br>解决办法：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install libxml2-dev</div></pre></td></tr></table></figure></p>
+<p>错误二：<br>configure: error: Please reinstall the BZip2 distribution<br>而我也已经安装了bzip2，网上找到得解决方案都是需要安装bzip2-dev，可是11.10里面没有这个库。<br>解决办法：在网上找到bzip2-1.0.5.tar.gz，解压，直接make ,sudo make install.(我使用的该源来自于<a href="http://ishare.iask.sina.com.cn/f/9769001.html" target="_blank" rel="external">http://ishare.iask.sina.com.cn/f/9769001.html</a>)</p>
+<p>错误三：<br>configure: error: Please reinstall the libcurl distribution -easy.h should be in /include/curl/<br>解决办法：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install libcurl4-gnutls-dev</div></pre></td></tr></table></figure></p>
+<p>错误四：<br>configure: error: jpeglib.h not found.<br>解决办法：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install libjpeg-dev</div></pre></td></tr></table></figure></p>
+<p>错误五：<br>configure: error: png.h not found.<br>解决办法：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install libpng-dev</div></pre></td></tr></table></figure></p>
+<p>错误六：<br>configure: error: libXpm.(a|so) not found.<br>解决办法：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install libxpm-dev</div></pre></td></tr></table></figure></p>
+<p>错误七：<br>configure: error: freetype.h not found.<br>解决办法：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install libfreetype6-dev</div></pre></td></tr></table></figure></p>
+<p>错误八：<br>configure: error: Your t1lib distribution is not installed correctly. Please reinstall it.<br>解决办法：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install libt1-dev</div></pre></td></tr></table></figure></p>
+<p>错误九：<br>configure: error: mcrypt.h not found. Please reinstall libmcrypt.<br>解决办法：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install libmcrypt-dev</div></pre></td></tr></table></figure></p>
+<p>错误十：<br>configure: error: Cannot find MySQL header files under yes.<br>Note that the MySQL client library is not bundled anymore!<br>解决办法：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install libmysql++-dev</div></pre></td></tr></table></figure></p>
+<p>错误十一：<br>configure: error: xslt-config not found. Please reinstall the libxslt &gt;= 1.1.0 distribution<br>解决办法：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install libxslt1-dev</div></pre></td></tr></table></figure></p>
+<p>可见PHP源码安装之前需要先安装这些依赖，详细可见<a href="http://forum.ubuntu.org.cn/viewtopic.php?f=88&amp;t=231159" target="_blank" rel="external">http://forum.ubuntu.org.cn/viewtopic.php?f=88&amp;t=231159</a><br>如上错误都解决之后，再次./config….没有错误之后，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">make</div><div class="line">sudo make install</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div
+    
+    </summary>
+    
+      <category term="PHP" scheme="http://blog.boshu.org/categories/PHP/"/>
+    
+    
+      <category term="linux" scheme="http://blog.boshu.org/tags/linux/"/>
+    
+      <category term="ubuntu" scheme="http://blog.boshu.org/tags/ubuntu/"/>
+    
+      <category term="php" scheme="http://blog.boshu.org/tags/php/"/>
     
   </entry>
   

@@ -71,10 +71,12 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="linux,UUID," />
+  <meta name="keywords" content="linux,cli,技巧," />
 
 
 
+
+  
 
 
   <link rel="alternate" href="/atom.xml" title="Bin blog" type="application/atom+xml" />
@@ -89,16 +91,94 @@
 
 
 
-<meta name="description" content="UUID是什么?UUID(Universally Unique Identifier)全局唯一标识符,是指在一台机器上生成的数字，它保证对在同一时空中的所有机器都是唯一的。按照开放软件基金会(OSF)制定的标准计算，用到了以太网卡地址、纳秒级时间、芯片ID码和许多可能的数字。由以下几部分的组合：当前日期和时间(UUID的第一个部分与时间有关，如果你在生成一个UUID之后，过几秒又生成一个UUID，">
+<meta name="description" content="一些技巧
+
+
+技巧
+说明
+
+
+
+
+sudo !!
+以root权限执行上一条命令（注意上一条命令的内容，以免发生意外）
+
+
+!+数字
+执行history中相应编号的命令
+
+
+^foo^bar
+将上一条命令中的第一个字符串”foo”替换成“bar”后执行
+
+
+!!:gs/foo/bar
+将上一条命令中的字符串“foo”全部替换成”bar”，然后执行
+
+
+C-x e
+打开编辑器编辑命令，这个编辑器是环境">
 <meta property="og:type" content="article">
-<meta property="og:title" content="设备UUID">
-<meta property="og:url" content="http://blog.boshu.org/2015/04/2008-04-UUID/index.html">
+<meta property="og:title" content="linux-cli-skill">
+<meta property="og:url" content="http://blog.boshu.org/2017/03/linux-cli-skill/index.html">
 <meta property="og:site_name" content="Bin blog">
-<meta property="og:description" content="UUID是什么?UUID(Universally Unique Identifier)全局唯一标识符,是指在一台机器上生成的数字，它保证对在同一时空中的所有机器都是唯一的。按照开放软件基金会(OSF)制定的标准计算，用到了以太网卡地址、纳秒级时间、芯片ID码和许多可能的数字。由以下几部分的组合：当前日期和时间(UUID的第一个部分与时间有关，如果你在生成一个UUID之后，过几秒又生成一个UUID，">
-<meta property="og:updated_time" content="2017-03-05T12:42:01.000Z">
+<meta property="og:description" content="一些技巧
+
+
+技巧
+说明
+
+
+
+
+sudo !!
+以root权限执行上一条命令（注意上一条命令的内容，以免发生意外）
+
+
+!+数字
+执行history中相应编号的命令
+
+
+^foo^bar
+将上一条命令中的第一个字符串”foo”替换成“bar”后执行
+
+
+!!:gs/foo/bar
+将上一条命令中的字符串“foo”全部替换成”bar”，然后执行
+
+
+C-x e
+打开编辑器编辑命令，这个编辑器是环境">
+<meta property="og:updated_time" content="2017-03-06T16:16:18.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="设备UUID">
-<meta name="twitter:description" content="UUID是什么?UUID(Universally Unique Identifier)全局唯一标识符,是指在一台机器上生成的数字，它保证对在同一时空中的所有机器都是唯一的。按照开放软件基金会(OSF)制定的标准计算，用到了以太网卡地址、纳秒级时间、芯片ID码和许多可能的数字。由以下几部分的组合：当前日期和时间(UUID的第一个部分与时间有关，如果你在生成一个UUID之后，过几秒又生成一个UUID，">
+<meta name="twitter:title" content="linux-cli-skill">
+<meta name="twitter:description" content="一些技巧
+
+
+技巧
+说明
+
+
+
+
+sudo !!
+以root权限执行上一条命令（注意上一条命令的内容，以免发生意外）
+
+
+!+数字
+执行history中相应编号的命令
+
+
+^foo^bar
+将上一条命令中的第一个字符串”foo”替换成“bar”后执行
+
+
+!!:gs/foo/bar
+将上一条命令中的字符串“foo”全部替换成”bar”，然后执行
+
+
+C-x e
+打开编辑器编辑命令，这个编辑器是环境">
 
 
 
@@ -126,13 +206,13 @@
 
 
 
-  <link rel="canonical" href="http://blog.boshu.org/2015/04/2008-04-UUID/"/>
+  <link rel="canonical" href="http://blog.boshu.org/2017/03/linux-cli-skill/"/>
 
 
 
 
 
-  <title> 设备UUID | Bin blog </title>
+  <title> linux-cli-skill | Bin blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
@@ -261,7 +341,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.boshu.org/2015/04/2008-04-UUID/">
+    <link itemprop="mainEntityOfPage" href="http://blog.boshu.org/2017/03/linux-cli-skill/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Bin">
@@ -282,7 +362,7 @@
             
             
               
-                设备UUID
+                linux-cli-skill
               
             
           </h1>
@@ -297,8 +377,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-04-10T00:00:00+08:00">
-                2015-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-06T23:54:52+08:00">
+                2017-03-06
               </time>
             
 
@@ -316,8 +396,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2015/04/2008-04-UUID/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/2008-04-UUID/" itemprop="commentCount"></span>
+                <a href="/2017/03/linux-cli-skill/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/linux-cli-skill/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -343,9 +423,45 @@
       
 
       
-        <h1 id="UUID是什么"><a href="#UUID是什么" class="headerlink" title="UUID是什么?"></a>UUID是什么?</h1><p>UUID(Universally Unique Identifier)全局唯一标识符,是指在一台机器上生成的数字，它保证对在同一时空中的所有机器都是唯一的。按照开放软件基金会(OSF)制定的标准计算，用到了以太网卡地址、纳秒级时间、芯片ID码和许多可能的数字。由以下几部分的组合：当前日期和时间(UUID的第一个部分与时间有关，如果你在生成一个UUID之后，过几秒又生成一个UUID，则第一个部分不同，其余相同)，时钟序列，全局唯一的IEEE机器识别号（如果有网卡，从网卡获得，没有网卡以其他方式获得），UUID的唯一缺陷在于生成的结果串会比较长。</p>
-<h1 id="获取设备的UUID"><a href="#获取设备的UUID" class="headerlink" title="获取设备的UUID"></a>获取设备的UUID</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sudo blkid /dev/sda1</div><div class="line"></div><div class="line">output: </div><div class="line">/dev/sda1: UUID=<span class="string">"7db6e2b8-6821-476e-8dc5-00ab84bd636e"</span> TYPE=<span class="string">"ext2"</span></div></pre></td></tr></table></figure>
-<p>RFC文档 <a href="http://www.ietf.org/rfc/rfc4122.txt" target="_blank" rel="external">http://www.ietf.org/rfc/rfc4122.txt</a></p>
+        <h1 id="一些技巧"><a href="#一些技巧" class="headerlink" title="一些技巧"></a>一些技巧</h1><table>
+<thead>
+<tr>
+<th>技巧</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sudo !!</td>
+<td>以root权限执行上一条命令（注意上一条命令的内容，以免发生意外）</td>
+</tr>
+<tr>
+<td>!+数字</td>
+<td>执行history中相应编号的命令</td>
+</tr>
+<tr>
+<td>^foo^bar</td>
+<td>将上一条命令中的第一个字符串”foo”替换成“bar”后执行</td>
+</tr>
+<tr>
+<td>!!:gs/foo/bar</td>
+<td>将上一条命令中的字符串“foo”全部替换成”bar”，然后执行</td>
+</tr>
+<tr>
+<td>C-x e</td>
+<td>打开编辑器编辑命令，这个编辑器是环境变量中EDITOR的值</td>
+</tr>
+<tr>
+<td>Alt+./ESC+.</td>
+<td>将最近一条命令的参数输出——不是作为结果打印出来，而是在终端提示符后面输出，还可以进行编辑</td>
+</tr>
+</tbody>
+</table>
+<h1 id="一些命令"><a href="#一些命令" class="headerlink" title="一些命令"></a>一些命令</h1><h2 id="查找src目录下有printf这个内容的cpp文件"><a href="#查找src目录下有printf这个内容的cpp文件" class="headerlink" title="查找src目录下有printf这个内容的cpp文件"></a>查找src目录下有printf这个内容的cpp文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grep src/*.cpp <span class="_">-e</span> <span class="built_in">printf</span> | cut <span class="_">-d</span> <span class="string">':'</span> <span class="_">-f</span>1 | uniq</div></pre></td></tr></table></figure>
+<h2 id="按文件大小增序打印出当前目录下的文件名及其文件大小-单位字节）"><a href="#按文件大小增序打印出当前目录下的文件名及其文件大小-单位字节）" class="headerlink" title="按文件大小增序打印出当前目录下的文件名及其文件大小(单位字节）"></a>按文件大小增序打印出当前目录下的文件名及其文件大小(单位字节）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ls <span class="_">-l</span> | sed <span class="string">'1d'</span> | sort -n -k5 | awk <span class="string">'&#123;printf "%15s %10s\n", $9,$5&#125;'</span></div></pre></td></tr></table></figure>
+<h2 id="将当前目录下最大的5个文件移动到-five-biggest-这个目录下"><a href="#将当前目录下最大的5个文件移动到-five-biggest-这个目录下" class="headerlink" title="将当前目录下最大的5个文件移动到 ~/five-biggest/ 这个目录下"></a>将当前目录下最大的5个文件移动到 ~/five-biggest/ 这个目录下</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ls <span class="_">-l</span> | sed <span class="string">'1d'</span> | sort -n -r -k5 | head -n 5 | xargs -I &#123;&#125; mv &#123;&#125; ~/five-biggest/</div></pre></td></tr></table></figure>
+<h2 id="删除文件中的空行"><a href="#删除文件中的空行" class="headerlink" title="删除文件中的空行"></a>删除文件中的空行</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat a.txt | sed <span class="_">-e</span> <span class="string">'/^$/d'</span></div></pre></td></tr></table></figure>
+<h2 id="列出用的最多的命令"><a href="#列出用的最多的命令" class="headerlink" title="列出用的最多的命令"></a>列出用的最多的命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">history</span> -1 | awk <span class="string">'&#123;a[$2]++&#125;END&#123;for(i in a)&#123;print a[i] " " i&#125;&#125;'</span> | sort -rn | head</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -371,7 +487,9 @@
           
             <a href="/tags/linux/" rel="tag"># linux</a>
           
-            <a href="/tags/UUID/" rel="tag"># UUID</a>
+            <a href="/tags/cli/" rel="tag"># cli</a>
+          
+            <a href="/tags/技巧/" rel="tag"># 技巧</a>
           
         </div>
       
@@ -384,8 +502,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/04/2008-04-linux-cli/" rel="next" title="Linux的一些命令">
-                <i class="fa fa-chevron-left"></i> Linux的一些命令
+              <a href="/2017/02/2017-02-nginx-cache/" rel="next" title="Nginx fastcgi cache">
+                <i class="fa fa-chevron-left"></i> Nginx fastcgi cache
               </a>
             
           </div>
@@ -393,10 +511,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/05/2015-05-linux-permissions/" rel="prev" title="linux 文件系统权限笔记">
-                linux 文件系统权限笔记 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -422,8 +536,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/04/2008-04-UUID/"
-           data-title="设备UUID" data-url="http://blog.boshu.org/2015/04/2008-04-UUID/">
+      <div class="ds-thread" data-thread-key="2017/03/linux-cli-skill/"
+           data-title="linux-cli-skill" data-url="http://blog.boshu.org/2017/03/linux-cli-skill/">
       </div>
     
   </div>
@@ -532,7 +646,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#UUID是什么"><span class="nav-number">1.</span> <span class="nav-text">UUID是什么?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#获取设备的UUID"><span class="nav-number">2.</span> <span class="nav-text">获取设备的UUID</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一些技巧"><span class="nav-number">1.</span> <span class="nav-text">一些技巧</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些命令"><span class="nav-number">2.</span> <span class="nav-text">一些命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#查找src目录下有printf这个内容的cpp文件"><span class="nav-number">2.1.</span> <span class="nav-text">查找src目录下有printf这个内容的cpp文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按文件大小增序打印出当前目录下的文件名及其文件大小-单位字节）"><span class="nav-number">2.2.</span> <span class="nav-text">按文件大小增序打印出当前目录下的文件名及其文件大小(单位字节）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将当前目录下最大的5个文件移动到-five-biggest-这个目录下"><span class="nav-number">2.3.</span> <span class="nav-text">将当前目录下最大的5个文件移动到 ~/five-biggest/ 这个目录下</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除文件中的空行"><span class="nav-number">2.4.</span> <span class="nav-text">删除文件中的空行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列出用的最多的命令"><span class="nav-number">2.5.</span> <span class="nav-text">列出用的最多的命令</span></a></li></ol></li></ol></div>
             
 
           </div>
