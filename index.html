@@ -58,7 +58,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Roboto Slab:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -262,7 +262,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.boshu.org/2017/02/mysql-explain/">
+    <link itemprop="mainEntityOfPage" href="http://blog.boshu.org/2017/02/2017-02-nginx-cache/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Bin">
@@ -284,8 +284,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/02/mysql-explain/" itemprop="url">
-                  Mysql性能分析
+                <a class="post-title-link" href="/2017/02/2017-02-nginx-cache/" itemprop="url">
+                  Nginx fastcgi cache
                 </a>
               
             
@@ -320,161 +320,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/02/mysql-explain/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/mysql-explain/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>#Mysql性能分析</p>
-<p>执行mysql语句，只要在前面加上 explain 就可以分析查询语句的效率。</p>
-<p>例如：</p>
-<blockquote>
-<p>explain select focus_uid from user_focus where uid = xxx;</p>
-</blockquote>
-<p>explain显示了mysql如何使用索引来处理select语句以及连接表。可以帮助选择更好的索引和写出更优化的查询语句。</p>
-<p>具体解释如下：</p>
-<p>id 本次 select 的标识符。在查询中每个 select都有一个顺序的数值。<br>select_type select 的类型，可能会有以下几种：</p>
-<ul>
-<li>simple: 简单的 select （没有使用 union或子查询）</li>
-<li>primary: 最外层的 select。</li>
-<li>union: 第二层，在select 之后使用了 union。</li>
-<li>dependent union: union 语句中的第二个select，依赖于外部子查询</li>
-<li>subquery: 子查询中的第一个 select</li>
-<li>dependent subquery: 子查询中的第一个 subquery依赖于外部的子查询</li>
-<li>derived: 派生表 select（from子句中的子查询）</li>
-</ul>
-<p>table：显示这一行的数据是关于哪张表的<br>type：这是重要的列，显示连接使用了何种类型。从最好到最差的连接类型为const、eq_ref、ref、range、index 和ALL<br>system:表只有一行记录（等于系统表）。这是 const表连接类型的一个特例。<br>const:表中最多只有一行匹配的记录，它在查询一开始的时候就会被读取出来。由于只有一行记录，在余下的优化程序里该行记录的字段值可以被当作是一个 恒定值。const表查询起来非常快，因为只要读取一次！const 用于在和 primary key 或unique 索引中有固定值比较的情形。下面的几个查询中，tbl_name 就是 c表了。<br>eq_ref:从该表中会有一行记录被读取出来以和从前一个表中读取出来的记录做联合。与const类型不同的是，这是最好的连接类型。它用在索引所有部 分都用于做连接并且这个索引是一个primary key 或 unique 类型。eq_ref可以用于在进行”=”做比较时检索字段。比较的值可以是固定值或者是表达式，表达示中可以使用表里的字段，它们在读表之前已经准备好 了。<br>ref: 该表中所有符合检索值的记录都会被取出来和从上一个表中取出来的记录作联合。ref用于连接程序使用键的最左前缀或者是该键不是 primary key 或 unique索引（换句话说，就是连接程序无法根据键值只取得一条记录）的情况。当根据键值只查询到少数几条匹配的记录时，这就是一个不错的连接类型。 ref还可以用于检索字段使用 =操作符来比较的时候。<br>ref_or_null: 这种连接类型类似 ref，不同的是mysql会在检索的时候额外的搜索包含null 值的记录。<br>range: 只有在给定范围的记录才会被取出来，利用索引来取得一条记录。key字段表示使用了哪个索引。key_len字段包括了使用的键的最长部分。这种类型时 ref 字段值是 null。range用于将某个字段和一个定植用以下任何操作符比较时 =, &lt;&gt;, &gt;,&gt;=, &lt;, &lt;=, is null, &lt;=&gt;, between, 或 in。<br>index: 连接类型跟 all 一样，不同的是它只扫描索引树。它通常会比 all快点，因为索引文件通常比数据文件小。mysql在查询的字段知识单独的索引的一部分的情况下使用这种连接类型。<br>all: 将对该表做全部扫描以和从前一个表中取得的记录作联合。这时候如果第一个表没有被标识为const的话就不大好了，在其他情况下通常是非常糟糕的。正常地，可以通过增加索引使得能从表中更快的取得记录以避免all。  </p>
-<p>得保证查询至少达到range级别，最好能达到ref，否则就可能会出现性能问题。  </p>
-<p>possible_keys：显示可能应用在这张表中的索引。如果为空，没有可能的索引。可以为相关的域从WHERE语句中选择一个合适的语句<br>key：    实际使用的索引。如果为NULL，则没有使用索引。很少的情况下，MYSQL会选择优化不足的索引。这种情况下，可以在SELECT语句中使用force  INDEX（indexname）来强制使用一个索引或者用IGNORE INDEX（indexname）来强制MYSQL忽略索引<br>key_len：使用的索引的长度。在不损失精确性的情况下，长度越短越好<br>ref：    显示索引的哪一列被使用了，如果可能的话，是一个常数<br>rows：   MYSQL认为必须检查的用来返回请求数据的行数<br>Extra：  关于MYSQL如何解析查询的额外信息。将在表4.3中讨论，但这里可以看到的坏的例子是Using temporary和Using filesort，意思MYSQL根本不能使用索引，结果是检索会很慢  </p>
-<p>extra列返回的描述的意义<br>Distinct:一旦MYSQL找到了与行相联合匹配的行，就不再搜索了<br>Not exists: MYSQL优化了LEFT JOIN，一旦它找到了匹配LEFT JOIN标准的行，就不再搜索了<br>Range checked for each Record（index map:#）:没有找到理想的索引，因此对于从前面表中来的每一个行组合，MYSQL检查使用哪个索引，并用它来从表中返回行。这是使用索引的最慢的连接之一  </p>
-<p>Using filesort: mysql需要额外的做一遍从而以排好的顺序取得记录。排序程序根据连接的类型遍历所有的记录，并且将所有符合 where条件的记录的要排序的键和指向记录的指针存储起来。这些键已经排完序了，对应的记录也会按照排好的顺序取出来。  </p>
-<p>Using index: 列数据是从仅仅使用了索引中的信息而没有读取实际的行动的表返回的，这发生在对表的全部的请求列都是同一个索引的部分的时候<br>using temporary: mysql需要创建临时表存储结果以完成查询。这种情况通常发生在查询时包含了groupby 和 order by 子句，它以不同的方式列出了各个字段。<br>using where</p>
-<p>where子句将用来限制哪些记录匹配了下一个表或者发送给客户端。除非你特别地想要取得或者检查表种的所有记录，否则的话当查询的extra 字段值不是 using where 并且表连接类型是 all 或 index时可能表示有问题。  </p>
-<p>如果你想要让查询尽可能的快，那么就应该注意 extra 字段的值为usingfilesort 和 using temporary 的情况。  </p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.boshu.org/2017/02/nginx-cache/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Bin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Bin blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/02/nginx-cache/" itemprop="url">
-                  nginx fastcgi cache
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-28T00:00:00+08:00">
-                2017-02-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/02/nginx-cache/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/nginx-cache/" itemprop="commentCount"></span>
+                <a href="/2017/02/2017-02-nginx-cache/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/2017-02-nginx-cache/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -624,6 +471,744 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.boshu.org/2016/09/2016-09-mysql-explain/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/2016-09-mysql-explain/" itemprop="url">
+                  Mysql性能分析
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-20T00:00:00+08:00">
+                2016-09-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/09/2016-09-mysql-explain/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/2016-09-mysql-explain/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>#Mysql性能分析</p>
+<p>执行mysql语句，只要在前面加上 explain 就可以分析查询语句的效率。</p>
+<p>例如：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">explain</span> <span class="keyword">select</span> focus_uid <span class="keyword">from</span> user_focus <span class="keyword">where</span> uid = xxx;</div></pre></td></tr></table></figure></p>
+<p>explain显示了mysql如何使用索引来处理select语句以及连接表。可以帮助选择更好的索引和写出更优化的查询语句。</p>
+<p>具体解释如下：</p>
+<p>id 本次 select 的标识符。在查询中每个 select都有一个顺序的数值。<br>select_type select 的类型，可能会有以下几种：</p>
+<ul>
+<li>simple: 简单的 select （没有使用 union或子查询）</li>
+<li>primary: 最外层的 select。</li>
+<li>union: 第二层，在select 之后使用了 union。</li>
+<li>dependent union: union 语句中的第二个select，依赖于外部子查询</li>
+<li>subquery: 子查询中的第一个 select</li>
+<li>dependent subquery: 子查询中的第一个 subquery依赖于外部的子查询</li>
+<li><p>derived: 派生表 select（from子句中的子查询）</p>
+</li>
+<li><p>table：显示这一行的数据是关于哪张表的  </p>
+</li>
+<li>type：这是重要的列，显示连接使用了何种类型。从最好到最差的连接类型为const、eq_ref、ref、range、index 和ALL  </li>
+<li>system:表只有一行记录（等于系统表）。这是 const表连接类型的一个特例。  </li>
+<li>const:表中最多只有一行匹配的记录，它在查询一开始的时候就会被读取出来。由于只有一行记录，在余下的优化程序里该行记录的字段值可以被当作是一个 恒定值。const表查询起来非常快，因为只要读取一次！const 用于在和 primary key 或unique 索引中有固定值比较的情形。下面的几个查询中，tbl_name 就是 c表了。  </li>
+<li>eq_ref:从该表中会有一行记录被读取出来以和从前一个表中读取出来的记录做联合。与const类型不同的是，这是最好的连接类型。它用在索引所有部 分都用于做连接并且这个索引是一个primary key 或 unique 类型。eq_ref可以用于在进行”=”做比较时检索字段。比较的值可以是固定值或者是表达式，表达示中可以使用表里的字段，它们在读表之前已经准备好 了。  </li>
+<li>ref: 该表中所有符合检索值的记录都会被取出来和从上一个表中取出来的记录作联合。ref用于连接程序使用键的最左前缀或者是该键不是 primary key 或 unique索引（换句话说，就是连接程序无法根据键值只取得一条记录）的情况。当根据键值只查询到少数几条匹配的记录时，这就是一个不错的连接类型。 ref还可以用于检索字段使用 =操作符来比较的时候。  </li>
+<li>ref_or_null: 这种连接类型类似 ref，不同的是mysql会在检索的时候额外的搜索包含null 值的记录。  </li>
+<li>range: 只有在给定范围的记录才会被取出来，利用索引来取得一条记录。key字段表示使用了哪个索引。key_len字段包括了使用的键的最长部分。这种类型时 ref 字段值是 null。range用于将某个字段和一个定植用以下任何操作符比较时 =, &lt;&gt;, &gt;,&gt;=, &lt;, &lt;=, is null, &lt;=&gt;, between, 或 in。  </li>
+<li>index: 连接类型跟 all 一样，不同的是它只扫描索引树。它通常会比 all快点，因为索引文件通常比数据文件小。mysql在查询的字段知识单独的索引的一部分的情况下使用这种连接类型。  </li>
+<li>all: 将对该表做全部扫描以和从前一个表中取得的记录作联合。这时候如果第一个表没有被标识为const的话就不大好了，在其他情况下通常是非常糟糕的。正常地，可以通过增加索引使得能从表中更快的取得记录以避免all。  </li>
+</ul>
+<p>得保证查询至少达到range级别，最好能达到ref，否则就可能会出现性能问题。  </p>
+<ul>
+<li>possible_keys：显示可能应用在这张表中的索引。如果为空，没有可能的索引。可以为相关的域从WHERE语句中选择一个合适的语句  </li>
+<li>key：    实际使用的索引。如果为NULL，则没有使用索引。很少的情况下，MYSQL会选择优化不足的索引。这种情况下，可以在SELECT语句中使用force  INDEX（indexname）来强制使用一个索引或者用IGNORE INDEX（indexname）来强制MYSQL忽略索引  </li>
+<li>key_len：使用的索引的长度。在不损失精确性的情况下，长度越短越好  </li>
+<li>ref：    显示索引的哪一列被使用了，如果可能的话，是一个常数  </li>
+<li>rows：   MYSQL认为必须检查的用来返回请求数据的行数  </li>
+<li>Extra：  关于MYSQL如何解析查询的额外信息。将在表4.3中讨论，但这里可以看到的坏的例子是Using temporary和Using filesort，意思MYSQL根本不能使用索引，结果是检索会很慢  </li>
+</ul>
+<p>extra列返回的描述的意义  </p>
+<ul>
+<li>Distinct:一旦MYSQL找到了与行相联合匹配的行，就不再搜索了  </li>
+<li>Not exists: MYSQL优化了LEFT JOIN，一旦它找到了匹配LEFT JOIN标准的行，就不再搜索了  </li>
+<li><p>Range checked for each Record（index map:#）:没有找到理想的索引，因此对于从前面表中来的每一个行组合，MYSQL检查使用哪个索引，并用它来从表中返回行。这是使用索引的最慢的连接之一  </p>
+</li>
+<li><p>Using filesort: mysql需要额外的做一遍从而以排好的顺序取得记录。排序程序根据连接的类型遍历所有的记录，并且将所有符合 where条件的记录的要排序的键和指向记录的指针存储起来。这些键已经排完序了，对应的记录也会按照排好的顺序取出来。  </p>
+</li>
+<li><p>Using index: 列数据是从仅仅使用了索引中的信息而没有读取实际的行动的表返回的，这发生在对表的全部的请求列都是同一个索引的部分的时候  </p>
+</li>
+<li>using temporary: mysql需要创建临时表存储结果以完成查询。这种情况通常发生在查询时包含了groupby 和 order by 子句，它以不同的方式列出了各个字段。  </li>
+<li>using where</li>
+</ul>
+<p>where子句将用来限制哪些记录匹配了下一个表或者发送给客户端。除非你特别地想要取得或者检查表种的所有记录，否则的话当查询的extra 字段值不是 using where 并且表连接类型是 all 或 index时可能表示有问题。  </p>
+<p>如果你想要让查询尽可能的快，那么就应该注意 extra 字段的值为usingfilesort 和 using temporary 的情况。  </p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.boshu.org/2015/05/2015-05-linux-permissions/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/05/2015-05-linux-permissions/" itemprop="url">
+                  linux 文件系统权限笔记
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-05-21T00:00:00+08:00">
+                2015-05-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/05/2015-05-linux-permissions/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/2015-05-linux-permissions/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="setuid"><a href="#setuid" class="headerlink" title="setuid"></a>setuid</h1><p>用户还有一个成为setuid(S)的特殊权限，它出现在X位置，setuid权限允许用户以其拥有者的权限来执行文件，即使这个可执行文件是由其它用户运行的<br>setuid是使用不是无限制的，为了安全，它只能应用在Linux ELF格式二进制文件上，而不能用于脚本文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod +s <span class="built_in">test</span></div></pre></td></tr></table></figure>
+<h1 id="粘带位"><a href="#粘带位" class="headerlink" title="粘带位"></a>粘带位</h1><p>粘带位是一种应用于目录的权限类型。通过设置粘滞位，使得只有目录的所有者才能够删除目录中的文件，即使用户组和其它用户有权限也不能删除<br>粘带位出现在其它用户权限中x的位置。<br>如果没有设置执行权限，但设置了粘滞位，那么使用t; 如果同时设置了执行权限和粘滞位，就使用T</p>
+<p>数字表示：</p>
+<ul>
+<li>r=4</li>
+<li>w=2</li>
+<li>x=1</li>
+</ul>
+<h1 id="chattr"><a href="#chattr" class="headerlink" title="chattr"></a>chattr</h1><p>修改文件在Linux第二扩展文件系统(E2fs)上的特有属性<br>当修改设置了’A’属性的文件时,它的atime记录不会改变.  这可以在笔记本电脑系统中避免某些磁盘I/O处理.</p>
+<ul>
+<li>设置了’a’属性的文件只能在添加模式下打开用于写入.  只有超级用户可以设置或清除该属性.</li>
+<li>设置了’c’属性的文件在磁盘上由内核自动进行压缩处理.  从该文件读取时返回的是未压缩的数据.  对该文件的一次写入会在保存它们到磁盘之前进行数据压缩.</li>
+<li>设置了’d’属性的文件不能对其运行 dump(8) 程序进行备份.</li>
+<li>设置了’i’属性的文件不能进行修改:你既不能删除它, 也不能给它重新命名,你不能对该文件创建链接, 而且也不能对该文件写入任何数据.  只有超级用户可以设置或清除该属性.</li>
+<li>当删除设置了’s’属性的文件时,将对其数据块清零 并写回到磁盘上.</li>
+<li>当修改设置了’S’属性的文件时, 修改会同步写入到磁盘上;这与应用 到文件子系统上的’sync’挂载选项有相同的效果.</li>
+<li>当删除设置了’u’属性的文件时, 将会保存其内容.  这使得用户可以请求恢复被删除的文件.</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.boshu.org/2015/05/2008-05-apache-ab/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/05/2008-05-apache-ab/" itemprop="url">
+                  Apache ab 中文注释
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-05-21T00:00:00+08:00">
+                2015-05-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/05/2008-05-apache-ab/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/2008-05-apache-ab/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>This is ApacheBench, Version 2.0.40-dev &lt;$Revision: 1.146 $&gt; apache-2.0<br>Copyright 1996 Adam Twiss, Zeus Technology Ltd, <a href="http://www.zeustech.net/" target="_blank" rel="external">http://www.zeustech.net/</a><br>Copyright 1997-2005 The Apache Software Foundation, <a href="http://www.apache.org/" target="_blank" rel="external">http://www.apache.org/</a></p>
+<p>Benchmarking www.google.com (be patient)…..done</p>
+<p>Server Software:        GWS/2.1<br>Server Hostname:        www.google.com<br>Server Port:            80</p>
+<p>Document Path:          /<br>Document Length:        230 bytes</p>
+<p>Concurrency Level:      10<br>/<em>整个测试持续的时间</em>/<br>Time taken for tests:   3.234651 seconds<br>/<em>完成的请求数量</em>/<br>Complete requests:      10<br>/<em>失败的请求数量</em>/<br>Failed requests:        0<br>Write errors:           0<br>Non-2xx responses:      10<br>Keep-Alive requests:    10<br>/<em>整个场景中的网络传输量</em>/<br>Total transferred:      6020 bytes<br>/<em>整个场景中的HTML内容传输量</em>/<br>HTML transferred:       2300 bytes<br>/<em>大家最关心的指标之一，相当于 LR 中的 每秒事务数 ，后面括号中的 mean 表示这是一个平均值</em>/<br>Requests per second:    3.09 [#/sec] (mean)<br>/<em>大家最关心的指标之二，相当于 LR 中的 平均事务响应时间 ，后面括号中的 mean 表示这是一个平均值</em>/<br>Time per request:       3234.651 [ms] (mean)<br>/<em>这个还不知道是什么意思，有知道的朋友请留言，谢谢 ^_^ </em>/<br>Time per request:       323.465 [ms] (mean, across all concurrent requests)<br>/<em>平均每秒网络上的流量，可以帮助排除是否存在网络流量过大导致响应时间延长的问题</em>/<br>Transfer rate:          1.55 [Kbytes/sec] received<br>/<em>网络上消耗的时间的分解，各项数据的具体算法还不是很清楚</em>/<br>Connection Times (ms)<br>              min  mean[+/-sd] median   max<br>Connect:       20  318 926.1     30    2954<br>Processing:    40 2160 1462.0   3034    3154<br>Waiting:       40 2160 1462.0   3034    3154<br>Total:         60 2479 1276.4   3064    3184</p>
+<p>/<em>下面的内容为整个场景中所有请求的响应情况。在场景中每个请求都有一个响应时间，其中 50％ 的用户响应时间小于 3064 毫秒，60 ％ 的用户响应时间小于 3094 毫秒，最大的响应时间小于 3184 毫秒</em>/<br>Percentage of the requests served within a certain time (ms)<br>  50%   3064<br>  66%   3094<br>  75%   3124<br>  80%   3154<br>  90%   3184<br>  95%   3184<br>  98%   3184<br>  99%   3184<br>100%   3184 (longest request)</p>
+<p>-n requests     Number of requests to perform<br>//在测试会话中所执行的请求个数。默认时，仅执行一个请求<br>-c concurrency Number of multiple requests to make<br>//一次产生的请求个数。默认是一次一个。<br>-t timelimit    Seconds to max. wait for responses<br>//测试所进行的最大秒数。其内部隐含值是-n 50000。它可以使对服务器的测试限制在一个固定的总时间以内。默认时，没有时间限制。<br>-p postfile     File containing data to POST<br>//包含了需要POST的数据的文件.<br>-T content-type Content-type header for POSTing<br>//POST数据所使用的Content-type头信息。<br>-v verbosity    How much troubleshooting info to print<br>//设置显示信息的详细程度 - 4或更大值会显示头信息， 3或更大值可以显示响应代码(404, 200等), 2或更大值可以显示警告和其他信息。 -V 显示版本号并退出。<br>-w              Print out results in HTML tables<br>//以HTML表的格式输出结果。默认时，它是白色背景的两列宽度的一张表。<br>-i              Use HEAD instead of GET<br>// 执行HEAD请求，而不是GET。<br>-C attribute    Add cookie, eg. ‘Apache=1234. (repeatable)<br>//-C cookie-name=value 对请求附加一个Cookie:行。 其典型形式是name=value的一个参数对。此参数可以重复。<br>-P attribute    Add Basic Proxy Authentication, the attributes<br>                are a colon separated username and password.<br>//-P proxy-auth-username:password 对一个中转代理提供BASIC认证信任。用户名和密码由一个:隔开，并以base64编码形式发送。无论服务器是否需要(即, 是否发送了401认证需求代码)，此字符串都会被发送。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.boshu.org/2015/04/2008-04-UUID/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/04/2008-04-UUID/" itemprop="url">
+                  设备UUID
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-04-10T00:00:00+08:00">
+                2015-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/04/2008-04-UUID/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/2008-04-UUID/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="UUID是什么"><a href="#UUID是什么" class="headerlink" title="UUID是什么?"></a>UUID是什么?</h1><p>UUID(Universally Unique Identifier)全局唯一标识符,是指在一台机器上生成的数字，它保证对在同一时空中的所有机器都是唯一的。按照开放软件基金会(OSF)制定的标准计算，用到了以太网卡地址、纳秒级时间、芯片ID码和许多可能的数字。由以下几部分的组合：当前日期和时间(UUID的第一个部分与时间有关，如果你在生成一个UUID之后，过几秒又生成一个UUID，则第一个部分不同，其余相同)，时钟序列，全局唯一的IEEE机器识别号（如果有网卡，从网卡获得，没有网卡以其他方式获得），UUID的唯一缺陷在于生成的结果串会比较长。</p>
+<h1 id="获取设备的UUID"><a href="#获取设备的UUID" class="headerlink" title="获取设备的UUID"></a>获取设备的UUID</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sudo blkid /dev/sda1</div><div class="line"></div><div class="line">output: </div><div class="line">/dev/sda1: UUID=<span class="string">"7db6e2b8-6821-476e-8dc5-00ab84bd636e"</span> TYPE=<span class="string">"ext2"</span></div></pre></td></tr></table></figure>
+<p>RFC文档 <a href="http://www.ietf.org/rfc/rfc4122.txt" target="_blank" rel="external">http://www.ietf.org/rfc/rfc4122.txt</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.boshu.org/2015/04/2008-04-linux-cli/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/04/2008-04-linux-cli/" itemprop="url">
+                  Linux的一些命令
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-04-08T00:00:00+08:00">
+                2015-04-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/04/2008-04-linux-cli/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/2008-04-linux-cli/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>locale 查看本地的语言环境<br>/ect/default/locale 本地语言配置文件</p>
+<p>nano 一个文本编辑器<br>blkid 列出设备的UUID</p>
+<p>apt-get update 更新软件包列表<br>apt-get upgrede 升级软件包<br>apt-get dist-update 如果运行apt-get upgrede后有些软件提示被保留，而不升级，这条可用来升级所有可用软件包<br>do-release-upgrade 版本升级</p>
+<p>apt-cache 搜索某个软件包的名子，或显示软件包的信息<br>apt-cache show 显示软件包的信息</p>
+<p>aptitude 高级包管理</p>
+<p>tasksel 完成安装任务 定义到/usr/share/tasksel/ .desc 中，有图形界面</p>
+<p>dpkg 比较底层的安装命令，以后都是调用这个</p>
+<ul>
+<li>dpkg -l <package> 查看某个包是否被安装</package></li>
+<li>dpkg -L <package> 查看软件包中包含哪些文件</package></li>
+<li>dpkg -S /pack/to/file 查看系统中某些文件是由哪个包提供的</li>
+<li>dpkg -C 查看哪些包末安装完成</li>
+</ul>
+<p>sudo su 进入root用户</p>
+<p>/etc/network/interfaces 网络配置<br>/etc/resolv.conf NDS配置</p>
+<p>mc 文件管理器<br>mcedit mc带的一个文本编辑器</p>
+<p>find 查找文件<br>locate 查找文件，在/etc/cron.daily/mlocate中查找，这个文件每天更新一次<br>updatedb 更新/etc/cron.daily/mlocate文件</p>
+<p>/etc/ssh/sshd_config ssh配制</p>
+<p>jobs 列出后台的任条<br>fg   将后台程序转入到前台<br>bg   将前台程序转入到后台 </p>
+<p>/etc/profile 环境变量文件</p>
+<p>whereis 检查程序安装路径</p>
+<p>/proc/cpuinfo cpu信息</p>
+<p>getconf PAGESIZE 查看系统的页大小</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -669,7 +1254,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -680,7 +1265,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
