@@ -1,0 +1,5 @@
+node_modules
+.idea
+.deploy_git
+*.log
+*.tmp
