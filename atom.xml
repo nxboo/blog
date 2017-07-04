@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.boshu.org/"/>
-  <updated>2017-03-06T16:25:41.000Z</updated>
+  <updated>2017-07-04T10:08:20.000Z</updated>
   <id>http://blog.boshu.org/</id>
   
   <author>
@@ -16,11 +16,53 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Zabbix install</title>
+    <link href="http://blog.boshu.org/2017/07/zabbix-install/"/>
+    <id>http://blog.boshu.org/2017/07/zabbix-install/</id>
+    <published>2017-07-03T07:08:38.000Z</published>
+    <updated>2017-07-04T10:08:20.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> ~/tmp/</div><div class="line"></div><div class="line"><span class="comment">#下载</span></div><div class="line">wget https://jaist.dl.sourceforge.net/project/zabbix/ZABBIX%20Latest%20Stable/3.0.9/zabbix-3.0.9.tar.gz</div><div class="line">tar -zxvf zabbix-3.0.9.tar.gz</div><div class="line"><span class="built_in">cd</span> zabbix-3.0.9</div><div class="line"></div><div class="line"><span class="comment">#编译安装server和agent</span></div><div class="line">./configure --prefix=/xxx/zabbix --enable-server --enable-agent --with-mysql --with-libcurl</div><div class="line">make</div><div class="line">make install</div><div class="line"></div><div class="line"><span class="comment">#导入数据</span></div><div class="line"><span class="built_in">cd</span> database;</div><div class="line"></div><div class="line"><span class="comment">#导入数据，导入顺序错误，可能会报错</span></div><div class="line">mysql -h&#123;host&#125; -P&#123;port&#125; -u&#123;user&#125; -p&#123;password&#125; &#123;dbname&#125; &lt; mysql/schema.sql</div><div class="line">mysql -h&#123;host&#125; -P&#123;port&#125; -u&#123;user&#125; -p&#123;password&#125; &#123;dbname&#125; &lt; mysql/images.sql</div><div class="line">mysql -h&#123;host&#125; -P&#123;port&#125; -u&#123;user&#125; -p&#123;password&#125; &#123;dbname&#125; &lt; mysql/data.sql</div><div class="line"></div><div class="line"><span class="comment">#复制管理平台到对应目录</span></div><div class="line"><span class="comment">#网有第一次访问的时候有安装向导，会检测服务器配置和输入数据库用户名和密码</span></div><div class="line"><span class="built_in">cd</span> ..</div><div class="line">cp -r frontends/php ~/www/zabbix</div></pre></td></tr></table></figure>
+<h1 id="修改zabbix-server配置"><a href="#修改zabbix-server配置" class="headerlink" title="修改zabbix server配置"></a>修改zabbix server配置</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#日志</div><div class="line">LogFile=/xxx/server.log</div><div class="line"></div><div class="line">#数据库相关配置，zabbix无法读取网站的配置，需要单独配置</div><div class="line">DBHost=xxx</div><div class="line">DBName=xxx</div><div class="line">DBUser=xxx</div><div class="line">DBPassword=xxx</div><div class="line">DBPort=xxx</div></pre></td></tr></table></figure>
+<h1 id="修改zabbix-agent配置"><a href="#修改zabbix-agent配置" class="headerlink" title="修改zabbix agent配置"></a>修改zabbix agent配置</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">LogFile=/xxx/agentd.log</div><div class="line">#server IP列表，相当于一个白名单，只有在白名单内的IP才可以读取数据</div><div class="line">Server=xxx.xx.xxx.xx,xxx.xx.xxx.xx</div><div class="line">#加载子配置，如果要自定义采集点，建议开启，对应的配置文件可以复制到这个目录里</div><div class="line">Include=/xxx/zabbix_agentd.conf.d/*.conf</div></pre></td></tr></table></figure>
+<h1 id="管理平台配置"><a href="#管理平台配置" class="headerlink" title="管理平台配置"></a>管理平台配置</h1><ul>
+<li>用apache/nginx配置</li>
+<li>需要PHP支持</li>
+<li>有安装向导</li>
+<li>默认用户名/密码：admin / zabbix</li>
+</ul>
+<h1 id="一些问题"><a href="#一些问题" class="headerlink" title="一些问题"></a>一些问题</h1><h2 id="短信配置"><a href="#短信配置" class="headerlink" title="短信配置"></a>短信配置</h2><h3 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h3><p>本人有短信接口<br>/xxx/zabbix/share/zabbix/alertscripts/sendsms.php<br>“/xxx/zabbix” 为zabbix安装目录<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/env php</span></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line">error_reporting(<span class="number">0</span>);</div><div class="line">$to=$argv[<span class="number">1</span>];</div><div class="line">$subject=$argv[<span class="number">2</span>];</div><div class="line">$body=$argv[<span class="number">3</span>];</div><div class="line"></div><div class="line">$data = [</div><div class="line">	<span class="string">'mobile'</span>=&gt;$to,</div><div class="line">	<span class="string">'message'</span>=&gt;$subject. <span class="string">'【xxxx】'</span>,</div><div class="line">];</div><div class="line"></div><div class="line">$ch = curl_init();</div><div class="line">curl_setopt($ch, CURLOPT_URL, <span class="string">"http://xxxx/v1/send.json"</span>);</div><div class="line"></div><div class="line">curl_setopt($ch, CURLOPT_HTTP_VERSION  , CURL_HTTP_VERSION_1_0 );</div><div class="line">curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, <span class="number">30</span>);</div><div class="line">curl_setopt($ch, CURLOPT_RETURNTRANSFER, <span class="keyword">TRUE</span>);</div><div class="line">curl_setopt($ch, CURLOPT_HEADER, <span class="keyword">FALSE</span>);</div><div class="line"></div><div class="line">curl_setopt($ch, CURLOPT_HTTPAUTH , CURLAUTH_BASIC);</div><div class="line">curl_setopt($ch, CURLOPT_USERPWD  , <span class="string">'api:xxxx'</span>);</div><div class="line"></div><div class="line">curl_setopt($ch, CURLOPT_POST, <span class="keyword">TRUE</span>);</div><div class="line">curl_setopt($ch, CURLOPT_POSTFIELDS, $data);</div><div class="line"></div><div class="line">$res = curl_exec( $ch );</div><div class="line">curl_close( $ch );</div><div class="line">$res  = curl_error( $ch );</div><div class="line">var_dump($res);</div></pre></td></tr></table></figure></p>
+<p>脚本需要可执行权限</p>
+<h3 id="管理平台配置-1"><a href="#管理平台配置-1" class="headerlink" title="管理平台配置"></a>管理平台配置</h3><p><img src="/uploads/zabbix-1.png" alt="管理平台配置"></p>
+<h2 id="邮件配置"><a href="#邮件配置" class="headerlink" title="邮件配置"></a>邮件配置</h2><h3 id="脚本-1"><a href="#脚本-1" class="headerlink" title="脚本"></a>脚本</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/env php</span></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line">$to = $argv[<span class="number">1</span>];</div><div class="line">$subject = $argv[<span class="number">2</span>];</div><div class="line">$body = $argv[<span class="number">3</span>];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">thislog</span><span class="params">($info)</span> </span>&#123;</div><div class="line">	$fp = fopen(<span class="string">'/xxx/zabbix/script.log'</span>, <span class="string">'a'</span>);</div><div class="line">	fwrite($fp, date(<span class="string">'Y-m-d H:i:s'</span>). <span class="string">'  '</span>. $info . PHP_EOL);</div><div class="line">	fclose($fp);</div><div class="line">&#125;</div><div class="line"></div><div class="line">thislog(<span class="string">"start! to:$to subject:$subject body:$body"</span>);</div><div class="line"><span class="keyword">try</span> &#123;</div><div class="line"></div><div class="line">	<span class="keyword">require</span> <span class="keyword">__DIR__</span>.<span class="string">'/PHPMailer/PHPMailerAutoload.php'</span>;</div><div class="line"></div><div class="line">	$mail = <span class="keyword">new</span> PHPMailer;</div><div class="line"></div><div class="line">	<span class="comment">//$mail-&gt;SMTPDebug = 3;                               // Enable verbose debug output</span></div><div class="line"></div><div class="line">	$mail-&gt;isSMTP();                                      <span class="comment">// Set mailer to use SMTP</span></div><div class="line">	$mail-&gt;Host = <span class="string">'smtp.exmail.qq.com'</span>;  <span class="comment">// Specify main and backup SMTP servers</span></div><div class="line">	$mail-&gt;SMTPAuth = <span class="keyword">true</span>;                               <span class="comment">// Enable SMTP authentication</span></div><div class="line">	$mail-&gt;Username = <span class="string">'xxx'</span>;           <span class="comment">// SMTP username</span></div><div class="line">	$mail-&gt;Password = <span class="string">'xxx'</span>;                        <span class="comment">// SMTP password</span></div><div class="line">	$mail-&gt;SMTPSecure = <span class="string">'ssl'</span>;                            <span class="comment">// Enable TLS encryption, `ssl` also accepted</span></div><div class="line">	$mail-&gt;Port = <span class="number">465</span>;                                    <span class="comment">// TCP port to connect to</span></div><div class="line"></div><div class="line">	$mail-&gt;setFrom(<span class="string">'xxx'</span>, <span class="string">'Zabbix'</span>);</div><div class="line">	$mail-&gt;addAddress($to, <span class="string">'bin'</span>);</div><div class="line"></div><div class="line">	$mail-&gt;Subject = $subject;</div><div class="line">	$mail-&gt;Body = $body;</div><div class="line"></div><div class="line">	<span class="keyword">if</span> (!$mail-&gt;send()) &#123;</div><div class="line"></div><div class="line">		thislog(<span class="string">"send fail! error:$mail-&gt;ErrorInfo to:$to subject:$subject body:$body"</span>);</div><div class="line">		<span class="keyword">exit</span>(<span class="number">0</span>);</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">else</span> &#123;</div><div class="line">		thislog(<span class="string">"send success! to:$to subject:$subject body:$body"</span>);</div><div class="line">		<span class="keyword">exit</span>(<span class="number">1</span>);</div><div class="line">	&#125;</div><div class="line">&#125; <span class="keyword">catch</span> (<span class="keyword">Exception</span> $e) &#123;</div><div class="line">    $msg = $e-&gt;getMessage();</div><div class="line">	thislog(<span class="string">"exception: $msg to:$to subject:$subject body:$body"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>依赖 <a href="https://github.com/PHPMailer/PHPMailer/" target="_blank" rel="external">https://github.com/PHPMailer/PHPMailer/</a></p>
+<h3 id="管理平台配置-2"><a href="#管理平台配置-2" class="headerlink" title="管理平台配置"></a>管理平台配置</h3><p>与短信相同</p>
+<h2 id="报警配置"><a href="#报警配置" class="headerlink" title="报警配置"></a>报警配置</h2><p>必须配置：</p>
+<ul>
+<li>配置(Administration) -&gt; 动作(Actions)</li>
+<li>管理(Administration) -&gt; 用户(Users) -&gt; 报警媒介(Media)</li>
+</ul>
+<h2 id="自定义监控项"><a href="#自定义监控项" class="headerlink" title="自定义监控项"></a>自定义监控项</h2><p>  以后再说吧。。。</p>
+<h2 id="图表中文乱码解决"><a href="#图表中文乱码解决" class="headerlink" title="图表中文乱码解决"></a>图表中文乱码解决</h2><p>上传中文字体到网站：/fonts/目录<br>本例为微软雅黑字体（下载 uploads/YaHei.Consolas.ttf ）<br>修改文件 /include/defines.inc.php<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -i <span class="string">'s/DejaVuSans/YaHei.Consolas/g'</span> ~/www/zabbix/include/defines.inc.php</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h1&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div cl
+    
+    </summary>
+    
+    
+      <category term="zabbix" scheme="http://blog.boshu.org/tags/zabbix/"/>
+    
+  </entry>
+  
+  <entry>
     <title>linux命令行的一些技巧和脚本收集</title>
     <link href="http://blog.boshu.org/2017/03/linux-cli-skill/"/>
     <id>http://blog.boshu.org/2017/03/linux-cli-skill/</id>
     <published>2017-03-06T15:54:52.000Z</published>
-    <updated>2017-03-06T16:25:41.000Z</updated>
+    <updated>2017-03-27T06:33:02.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="一些技巧"><a href="#一些技巧" class="headerlink" title="一些技巧"></a>一些技巧</h1><table>
 <thead>
@@ -90,7 +132,7 @@
     <link href="http://blog.boshu.org/2017/02/2017-02-nginx-cache/"/>
     <id>http://blog.boshu.org/2017/02/2017-02-nginx-cache/</id>
     <published>2017-02-27T16:00:00.000Z</published>
-    <updated>2017-03-05T13:47:50.000Z</updated>
+    <updated>2017-06-26T06:36:43.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="相关参数"><a href="#相关参数" class="headerlink" title="相关参数"></a>相关参数</h1><h2 id="fastcgi-cache-path"><a href="#fastcgi-cache-path" class="headerlink" title="fastcgi_cache_path"></a>fastcgi_cache_path</h2><blockquote>
 <p>syntax: fastcgi_cache_path path [ levels = levels ] keys_zone = name : size [ inactive = time ] [ max_size = size ] [ loader_files = number ] [ &gt; loader_sleep = time ] [ loader_threshold = time ]<br>default: none<br>context: http</p>
@@ -203,7 +245,7 @@
     <link href="http://blog.boshu.org/2016/09/2016-09-mysql-explain/"/>
     <id>http://blog.boshu.org/2016/09/2016-09-mysql-explain/</id>
     <published>2016-09-19T16:00:00.000Z</published>
-    <updated>2017-03-05T11:45:55.000Z</updated>
+    <updated>2017-03-27T06:33:02.000Z</updated>
     
     <content type="html"><![CDATA[<p>#Mysql性能分析</p>
 <p>执行mysql语句，只要在前面加上 explain 就可以分析查询语句的效率。</p>
@@ -278,7 +320,7 @@
     <link href="http://blog.boshu.org/2015/09/2015-09-mysql-function/"/>
     <id>http://blog.boshu.org/2015/09/2015-09-mysql-function/</id>
     <published>2015-09-23T15:10:52.000Z</published>
-    <updated>2017-03-06T15:16:04.000Z</updated>
+    <updated>2017-03-27T06:33:02.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="字符串函数"><a href="#字符串函数" class="headerlink" title="字符串函数"></a>字符串函数</h1><p>concat 连接字符串<br>RTrim 删除右边的空格<br>upper 转为大写<br>left 返回字符串左边的字符<br>length 返回字符串的长度<br>locate 查找子字符串<br>lower 转为小写<br>LTrim 去掉左边的空格<br>Right 返回串右边的字符<br>soundex 返回串的soundex值 将任何文本转为拼音<br>substring 返回子串的字符</p>
 <h1 id="时间和日期处理函数"><a href="#时间和日期处理函数" class="headerlink" title="时间和日期处理函数"></a>时间和日期处理函数</h1><p>addDate()  增加一个日期（天，周等）<br>addTime()  增加一个时间（时，分等）<br>CurDate()  返回当前日期<br>CurTime()  返回当前时间<br>Date()  返回日期时间的日期部分<br>DateDiff() 计算两个日期之差<br>Date_Add() 高度灵活的日期运算函数<br>Date_Format() 返回一个格式格的日期或时间串<br>Day() 返回一个日期的天数部分<br>DayOfWeek() 返回星期几<br>Hour() 返回小时<br>Minute() 返回分钟<br>Mouth() 返回月<br>Now() 返回当前日期和时间<br>Second() 返回秒<br>Time() 返回时间部分<br>Year() 返回年</p>
@@ -304,40 +346,11 @@
   </entry>
   
   <entry>
-    <title>Apache ab 中文注释</title>
-    <link href="http://blog.boshu.org/2015/05/2008-05-apache-ab/"/>
-    <id>http://blog.boshu.org/2015/05/2008-05-apache-ab/</id>
-    <published>2015-05-20T16:00:00.000Z</published>
-    <updated>2017-03-05T12:24:33.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>This is ApacheBench, Version 2.0.40-dev &lt;$Revision: 1.146 $&gt; apache-2.0<br>Copyright 1996 Adam Twiss, Zeus Technology Ltd, <a href="http://www.zeustech.net/" target="_blank" rel="external">http://www.zeustech.net/</a><br>Copyright 1997-2005 The Apache Software Foundation, <a href="http://www.apache.org/" target="_blank" rel="external">http://www.apache.org/</a></p>
-<p>Benchmarking www.google.com (be patient)…..done</p>
-<p>Server Software:        GWS/2.1<br>Server Hostname:        www.google.com<br>Server Port:            80</p>
-<p>Document Path:          /<br>Document Length:        230 bytes</p>
-<p>Concurrency Level:      10<br>/<em>整个测试持续的时间</em>/<br>Time taken for tests:   3.234651 seconds<br>/<em>完成的请求数量</em>/<br>Complete requests:      10<br>/<em>失败的请求数量</em>/<br>Failed requests:        0<br>Write errors:           0<br>Non-2xx responses:      10<br>Keep-Alive requests:    10<br>/<em>整个场景中的网络传输量</em>/<br>Total transferred:      6020 bytes<br>/<em>整个场景中的HTML内容传输量</em>/<br>HTML transferred:       2300 bytes<br>/<em>大家最关心的指标之一，相当于 LR 中的 每秒事务数 ，后面括号中的 mean 表示这是一个平均值</em>/<br>Requests per second:    3.09 [#/sec] (mean)<br>/<em>大家最关心的指标之二，相当于 LR 中的 平均事务响应时间 ，后面括号中的 mean 表示这是一个平均值</em>/<br>Time per request:       3234.651 [ms] (mean)<br>/<em>这个还不知道是什么意思，有知道的朋友请留言，谢谢 ^_^ </em>/<br>Time per request:       323.465 [ms] (mean, across all concurrent requests)<br>/<em>平均每秒网络上的流量，可以帮助排除是否存在网络流量过大导致响应时间延长的问题</em>/<br>Transfer rate:          1.55 [Kbytes/sec] received<br>/<em>网络上消耗的时间的分解，各项数据的具体算法还不是很清楚</em>/<br>Connection Times (ms)<br>              min  mean[+/-sd] median   max<br>Connect:       20  318 926.1     30    2954<br>Processing:    40 2160 1462.0   3034    3154<br>Waiting:       40 2160 1462.0   3034    3154<br>Total:         60 2479 1276.4   3064    3184</p>
-<p>/<em>下面的内容为整个场景中所有请求的响应情况。在场景中每个请求都有一个响应时间，其中 50％ 的用户响应时间小于 3064 毫秒，60 ％ 的用户响应时间小于 3094 毫秒，最大的响应时间小于 3184 毫秒</em>/<br>Percentage of the requests served within a certain time (ms)<br>  50%   3064<br>  66%   3094<br>  75%   3124<br>  80%   3154<br>  90%   3184<br>  95%   3184<br>  98%   3184<br>  99%   3184<br>100%   3184 (longest request)</p>
-<p>-n requests     Number of requests to perform<br>//在测试会话中所执行的请求个数。默认时，仅执行一个请求<br>-c concurrency Number of multiple requests to make<br>//一次产生的请求个数。默认是一次一个。<br>-t timelimit    Seconds to max. wait for responses<br>//测试所进行的最大秒数。其内部隐含值是-n 50000。它可以使对服务器的测试限制在一个固定的总时间以内。默认时，没有时间限制。<br>-p postfile     File containing data to POST<br>//包含了需要POST的数据的文件.<br>-T content-type Content-type header for POSTing<br>//POST数据所使用的Content-type头信息。<br>-v verbosity    How much troubleshooting info to print<br>//设置显示信息的详细程度 - 4或更大值会显示头信息， 3或更大值可以显示响应代码(404, 200等), 2或更大值可以显示警告和其他信息。 -V 显示版本号并退出。<br>-w              Print out results in HTML tables<br>//以HTML表的格式输出结果。默认时，它是白色背景的两列宽度的一张表。<br>-i              Use HEAD instead of GET<br>// 执行HEAD请求，而不是GET。<br>-C attribute    Add cookie, eg. ‘Apache=1234. (repeatable)<br>//-C cookie-name=value 对请求附加一个Cookie:行。 其典型形式是name=value的一个参数对。此参数可以重复。<br>-P attribute    Add Basic Proxy Authentication, the attributes<br>                are a colon separated username and password.<br>//-P proxy-auth-username:password 对一个中转代理提供BASIC认证信任。用户名和密码由一个:隔开，并以base64编码形式发送。无论服务器是否需要(即, 是否发送了401认证需求代码)，此字符串都会被发送。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;This is ApacheBench, Version 2.0.40-dev &amp;lt;$Revision: 1.146 $&amp;gt; apache-2.0&lt;br&gt;Copyright 1996 Adam Twiss, Zeus Technology Ltd, &lt;a href=
-    
-    </summary>
-    
-    
-      <category term="apache" scheme="http://blog.boshu.org/tags/apache/"/>
-    
-      <category term="ab" scheme="http://blog.boshu.org/tags/ab/"/>
-    
-  </entry>
-  
-  <entry>
     <title>linux 文件系统权限笔记</title>
     <link href="http://blog.boshu.org/2015/05/2015-05-linux-permissions/"/>
     <id>http://blog.boshu.org/2015/05/2015-05-linux-permissions/</id>
     <published>2015-05-20T16:00:00.000Z</published>
-    <updated>2017-03-05T12:21:22.000Z</updated>
+    <updated>2017-03-27T06:33:02.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="setuid"><a href="#setuid" class="headerlink" title="setuid"></a>setuid</h1><p>用户还有一个成为setuid(S)的特殊权限，它出现在X位置，setuid权限允许用户以其拥有者的权限来执行文件，即使这个可执行文件是由其它用户运行的<br>setuid是使用不是无限制的，为了安全，它只能应用在Linux ELF格式二进制文件上，而不能用于脚本文件</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod +s <span class="built_in">test</span></div></pre></td></tr></table></figure>
@@ -374,11 +387,40 @@
   </entry>
   
   <entry>
+    <title>Apache ab 中文注释</title>
+    <link href="http://blog.boshu.org/2015/05/2008-05-apache-ab/"/>
+    <id>http://blog.boshu.org/2015/05/2008-05-apache-ab/</id>
+    <published>2015-05-20T16:00:00.000Z</published>
+    <updated>2017-03-27T06:33:02.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>This is ApacheBench, Version 2.0.40-dev &lt;$Revision: 1.146 $&gt; apache-2.0<br>Copyright 1996 Adam Twiss, Zeus Technology Ltd, <a href="http://www.zeustech.net/" target="_blank" rel="external">http://www.zeustech.net/</a><br>Copyright 1997-2005 The Apache Software Foundation, <a href="http://www.apache.org/" target="_blank" rel="external">http://www.apache.org/</a></p>
+<p>Benchmarking www.google.com (be patient)…..done</p>
+<p>Server Software:        GWS/2.1<br>Server Hostname:        www.google.com<br>Server Port:            80</p>
+<p>Document Path:          /<br>Document Length:        230 bytes</p>
+<p>Concurrency Level:      10<br>/<em>整个测试持续的时间</em>/<br>Time taken for tests:   3.234651 seconds<br>/<em>完成的请求数量</em>/<br>Complete requests:      10<br>/<em>失败的请求数量</em>/<br>Failed requests:        0<br>Write errors:           0<br>Non-2xx responses:      10<br>Keep-Alive requests:    10<br>/<em>整个场景中的网络传输量</em>/<br>Total transferred:      6020 bytes<br>/<em>整个场景中的HTML内容传输量</em>/<br>HTML transferred:       2300 bytes<br>/<em>大家最关心的指标之一，相当于 LR 中的 每秒事务数 ，后面括号中的 mean 表示这是一个平均值</em>/<br>Requests per second:    3.09 [#/sec] (mean)<br>/<em>大家最关心的指标之二，相当于 LR 中的 平均事务响应时间 ，后面括号中的 mean 表示这是一个平均值</em>/<br>Time per request:       3234.651 [ms] (mean)<br>/<em>这个还不知道是什么意思，有知道的朋友请留言，谢谢 ^_^ </em>/<br>Time per request:       323.465 [ms] (mean, across all concurrent requests)<br>/<em>平均每秒网络上的流量，可以帮助排除是否存在网络流量过大导致响应时间延长的问题</em>/<br>Transfer rate:          1.55 [Kbytes/sec] received<br>/<em>网络上消耗的时间的分解，各项数据的具体算法还不是很清楚</em>/<br>Connection Times (ms)<br>              min  mean[+/-sd] median   max<br>Connect:       20  318 926.1     30    2954<br>Processing:    40 2160 1462.0   3034    3154<br>Waiting:       40 2160 1462.0   3034    3154<br>Total:         60 2479 1276.4   3064    3184</p>
+<p>/<em>下面的内容为整个场景中所有请求的响应情况。在场景中每个请求都有一个响应时间，其中 50％ 的用户响应时间小于 3064 毫秒，60 ％ 的用户响应时间小于 3094 毫秒，最大的响应时间小于 3184 毫秒</em>/<br>Percentage of the requests served within a certain time (ms)<br>  50%   3064<br>  66%   3094<br>  75%   3124<br>  80%   3154<br>  90%   3184<br>  95%   3184<br>  98%   3184<br>  99%   3184<br>100%   3184 (longest request)</p>
+<p>-n requests     Number of requests to perform<br>//在测试会话中所执行的请求个数。默认时，仅执行一个请求<br>-c concurrency Number of multiple requests to make<br>//一次产生的请求个数。默认是一次一个。<br>-t timelimit    Seconds to max. wait for responses<br>//测试所进行的最大秒数。其内部隐含值是-n 50000。它可以使对服务器的测试限制在一个固定的总时间以内。默认时，没有时间限制。<br>-p postfile     File containing data to POST<br>//包含了需要POST的数据的文件.<br>-T content-type Content-type header for POSTing<br>//POST数据所使用的Content-type头信息。<br>-v verbosity    How much troubleshooting info to print<br>//设置显示信息的详细程度 - 4或更大值会显示头信息， 3或更大值可以显示响应代码(404, 200等), 2或更大值可以显示警告和其他信息。 -V 显示版本号并退出。<br>-w              Print out results in HTML tables<br>//以HTML表的格式输出结果。默认时，它是白色背景的两列宽度的一张表。<br>-i              Use HEAD instead of GET<br>// 执行HEAD请求，而不是GET。<br>-C attribute    Add cookie, eg. ‘Apache=1234. (repeatable)<br>//-C cookie-name=value 对请求附加一个Cookie:行。 其典型形式是name=value的一个参数对。此参数可以重复。<br>-P attribute    Add Basic Proxy Authentication, the attributes<br>                are a colon separated username and password.<br>//-P proxy-auth-username:password 对一个中转代理提供BASIC认证信任。用户名和密码由一个:隔开，并以base64编码形式发送。无论服务器是否需要(即, 是否发送了401认证需求代码)，此字符串都会被发送。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;This is ApacheBench, Version 2.0.40-dev &amp;lt;$Revision: 1.146 $&amp;gt; apache-2.0&lt;br&gt;Copyright 1996 Adam Twiss, Zeus Technology Ltd, &lt;a href=
+    
+    </summary>
+    
+    
+      <category term="apache" scheme="http://blog.boshu.org/tags/apache/"/>
+    
+      <category term="ab" scheme="http://blog.boshu.org/tags/ab/"/>
+    
+  </entry>
+  
+  <entry>
     <title>设备UUID</title>
     <link href="http://blog.boshu.org/2015/04/2008-04-UUID/"/>
     <id>http://blog.boshu.org/2015/04/2008-04-UUID/</id>
     <published>2015-04-09T16:00:00.000Z</published>
-    <updated>2017-03-05T12:42:01.000Z</updated>
+    <updated>2017-03-27T06:33:02.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="UUID是什么"><a href="#UUID是什么" class="headerlink" title="UUID是什么?"></a>UUID是什么?</h1><p>UUID(Universally Unique Identifier)全局唯一标识符,是指在一台机器上生成的数字，它保证对在同一时空中的所有机器都是唯一的。按照开放软件基金会(OSF)制定的标准计算，用到了以太网卡地址、纳秒级时间、芯片ID码和许多可能的数字。由以下几部分的组合：当前日期和时间(UUID的第一个部分与时间有关，如果你在生成一个UUID之后，过几秒又生成一个UUID，则第一个部分不同，其余相同)，时钟序列，全局唯一的IEEE机器识别号（如果有网卡，从网卡获得，没有网卡以其他方式获得），UUID的唯一缺陷在于生成的结果串会比较长。</p>
 <h1 id="获取设备的UUID"><a href="#获取设备的UUID" class="headerlink" title="获取设备的UUID"></a>获取设备的UUID</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sudo blkid /dev/sda1</div><div class="line"></div><div class="line">output: </div><div class="line">/dev/sda1: UUID=<span class="string">"7db6e2b8-6821-476e-8dc5-00ab84bd636e"</span> TYPE=<span class="string">"ext2"</span></div></pre></td></tr></table></figure>
@@ -403,7 +445,7 @@
     <link href="http://blog.boshu.org/2015/04/2008-04-linux-cli/"/>
     <id>http://blog.boshu.org/2015/04/2008-04-linux-cli/</id>
     <published>2015-04-07T16:00:00.000Z</published>
-    <updated>2017-03-05T12:45:24.000Z</updated>
+    <updated>2017-03-27T06:33:02.000Z</updated>
     
     <content type="html"><![CDATA[<p>locale 查看本地的语言环境<br>/ect/default/locale 本地语言配置文件</p>
 <p>nano 一个文本编辑器<br>blkid 列出设备的UUID</p>
@@ -450,7 +492,7 @@
     <link href="http://blog.boshu.org/2014/10/2014-10-linux-funny-cli/"/>
     <id>http://blog.boshu.org/2014/10/2014-10-linux-funny-cli/</id>
     <published>2014-10-31T15:42:43.000Z</published>
-    <updated>2017-03-06T15:50:43.000Z</updated>
+    <updated>2017-03-27T06:33:02.000Z</updated>
     
     <content type="html"><![CDATA[<p>跑火车的sl/LS<br>终端数字雨cmatrix<br>可能是名言警句也可能是逗你玩的笑话的fortune/fortune-zh<br>Linux下的ascii art演示bb<br>互动式小说游戏 adventure<br>cowsay、cowthink、banner、ddate、worms、pig</p>
 ]]></content>
@@ -473,7 +515,7 @@
     <link href="http://blog.boshu.org/2014/09/2014-09-ubuntu-make-php-error/"/>
     <id>http://blog.boshu.org/2014/09/2014-09-ubuntu-make-php-error/</id>
     <published>2014-09-01T15:26:29.000Z</published>
-    <updated>2017-03-06T15:38:31.000Z</updated>
+    <updated>2017-03-27T06:33:02.000Z</updated>
     
     <content type="html"><![CDATA[<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">./configure –prefix=/usr/<span class="built_in">local</span>/php –with-config-file-path=/etc \</div><div class="line">–with-mysql=/usr/<span class="built_in">local</span>/mysql –with-mysqli=/usr/<span class="built_in">local</span>/mysql/bin/mysql_config \</div><div class="line">–with-iconv-dir=/usr/<span class="built_in">local</span> –with-freetype-dir –with-jpeg-dir</div><div class="line">–with-png-dir –with-zlib –with-libxml-dir=/usr –<span class="built_in">enable</span>-xml \</div><div class="line">–<span class="built_in">disable</span>-rpath –<span class="built_in">enable</span>-safe-mode –<span class="built_in">enable</span>-bcmath –<span class="built_in">enable</span>-shmop \</div><div class="line">–<span class="built_in">enable</span>-sysvsem –<span class="built_in">enable</span>-inline-optimization –with-curl \</div><div class="line">–with-curlwrappers –<span class="built_in">enable</span>-mbregex –<span class="built_in">enable</span>-fpm –<span class="built_in">enable</span>-mbstring \</div><div class="line">–with-mcrypt –with-gd –<span class="built_in">enable</span>-gd-native-ttf –with-openssl \</div><div class="line">–with-mhash –<span class="built_in">enable</span>-pcntl –<span class="built_in">enable</span>-sockets –with-xmlrpc \</div><div class="line">–<span class="built_in">enable</span>-zip  –<span class="built_in">enable</span>-soap</div></pre></td></tr></table></figure>
 <p>出现得错误如下：<br>错误一：<br>configure: error: xml2-config not found. Please check your libxml2 installation.<br>而我已经安装过了libxml2,但是还是有这个提示：<br>解决办法：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install libxml2-dev</div></pre></td></tr></table></figure></p>
