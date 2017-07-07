@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="笔记,mysql,function," />
+  <meta name="keywords" content="steem,dbadmin,install,安装," />
 
 
 
@@ -89,19 +89,31 @@
 
 
 
-<meta name="description" content="字符串函数concat 连接字符串RTrim 删除右边的空格upper 转为大写left 返回字符串左边的字符length 返回字符串的长度locate 查找子字符串lower 转为小写LTrim 去掉左边的空格Right 返回串右边的字符soundex 返回串的soundex值 将任何文本转为拼音substring 返回子串的字符
-时间和日期处理函数addDate()  增加一个日期（天，周等）">
+<meta name="description" content="简介dbadmin是steem网站的管理平台，使用Ruby on Rails, activeadmin编写，是假设steem必须的一个项目
+
+dbadmin https://github.com/steemit/dbadmin 
+activeadmin https://github.com/activeadmin/activeadmin
+
+安装安装rvmruby要求2.3.112gpg --key">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mysql的一些函数">
-<meta property="og:url" content="http://blog.boshu.org/2015/09/2015-09-mysql-function/index.html">
+<meta property="og:title" content="Steem dbadmin安装">
+<meta property="og:url" content="http://blog.boshu.org/2017/07/dbadmin/index.html">
 <meta property="og:site_name" content="Bin blog">
-<meta property="og:description" content="字符串函数concat 连接字符串RTrim 删除右边的空格upper 转为大写left 返回字符串左边的字符length 返回字符串的长度locate 查找子字符串lower 转为小写LTrim 去掉左边的空格Right 返回串右边的字符soundex 返回串的soundex值 将任何文本转为拼音substring 返回子串的字符
-时间和日期处理函数addDate()  增加一个日期（天，周等）">
-<meta property="og:updated_time" content="2017-03-27T06:33:02.000Z">
+<meta property="og:description" content="简介dbadmin是steem网站的管理平台，使用Ruby on Rails, activeadmin编写，是假设steem必须的一个项目
+
+dbadmin https://github.com/steemit/dbadmin 
+activeadmin https://github.com/activeadmin/activeadmin
+
+安装安装rvmruby要求2.3.112gpg --key">
+<meta property="og:updated_time" content="2017-07-07T07:58:49.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mysql的一些函数">
-<meta name="twitter:description" content="字符串函数concat 连接字符串RTrim 删除右边的空格upper 转为大写left 返回字符串左边的字符length 返回字符串的长度locate 查找子字符串lower 转为小写LTrim 去掉左边的空格Right 返回串右边的字符soundex 返回串的soundex值 将任何文本转为拼音substring 返回子串的字符
-时间和日期处理函数addDate()  增加一个日期（天，周等）">
+<meta name="twitter:title" content="Steem dbadmin安装">
+<meta name="twitter:description" content="简介dbadmin是steem网站的管理平台，使用Ruby on Rails, activeadmin编写，是假设steem必须的一个项目
+
+dbadmin https://github.com/steemit/dbadmin 
+activeadmin https://github.com/activeadmin/activeadmin
+
+安装安装rvmruby要求2.3.112gpg --key">
 
 
 
@@ -129,13 +141,13 @@
 
 
 
-  <link rel="canonical" href="http://blog.boshu.org/2015/09/2015-09-mysql-function/"/>
+  <link rel="canonical" href="http://blog.boshu.org/2017/07/dbadmin/"/>
 
 
 
 
 
-  <title> mysql的一些函数 | Bin blog </title>
+  <title> Steem dbadmin安装 | Bin blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
@@ -264,7 +276,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.boshu.org/2015/09/2015-09-mysql-function/">
+    <link itemprop="mainEntityOfPage" href="http://blog.boshu.org/2017/07/dbadmin/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Bin">
@@ -285,7 +297,7 @@
             
             
               
-                mysql的一些函数
+                Steem dbadmin安装
               
             
           </h2>
@@ -300,8 +312,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-09-23T23:10:52+08:00">
-                2015-09-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-07T15:23:39+08:00">
+                2017-07-07
               </time>
             
 
@@ -310,28 +322,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/mysql/" itemprop="url" rel="index">
-                    <span itemprop="name">mysql</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -358,10 +348,27 @@
       
 
       
-        <h1 id="字符串函数"><a href="#字符串函数" class="headerlink" title="字符串函数"></a>字符串函数</h1><p>concat 连接字符串<br>RTrim 删除右边的空格<br>upper 转为大写<br>left 返回字符串左边的字符<br>length 返回字符串的长度<br>locate 查找子字符串<br>lower 转为小写<br>LTrim 去掉左边的空格<br>Right 返回串右边的字符<br>soundex 返回串的soundex值 将任何文本转为拼音<br>substring 返回子串的字符</p>
-<h1 id="时间和日期处理函数"><a href="#时间和日期处理函数" class="headerlink" title="时间和日期处理函数"></a>时间和日期处理函数</h1><p>addDate()  增加一个日期（天，周等）<br>addTime()  增加一个时间（时，分等）<br>CurDate()  返回当前日期<br>CurTime()  返回当前时间<br>Date()  返回日期时间的日期部分<br>DateDiff() 计算两个日期之差<br>Date_Add() 高度灵活的日期运算函数<br>Date_Format() 返回一个格式格的日期或时间串<br>Day() 返回一个日期的天数部分<br>DayOfWeek() 返回星期几<br>Hour() 返回小时<br>Minute() 返回分钟<br>Mouth() 返回月<br>Now() 返回当前日期和时间<br>Second() 返回秒<br>Time() 返回时间部分<br>Year() 返回年</p>
-<h1 id="常用的数值处理函数"><a href="#常用的数值处理函数" class="headerlink" title="常用的数值处理函数"></a>常用的数值处理函数</h1><p>abs 绝对数<br>cos 余玄<br>exp 指数<br>mod 余数<br>pi 圆周率<br>rand 随机数<br>sin 正玄<br>sqrt 平方根<br>tan 角度的正切</p>
-<h1 id="聚集函数"><a href="#聚集函数" class="headerlink" title="聚集函数"></a>聚集函数</h1><p>avg 平均值<br>count 行数<br>max 最大值<br>min 最小值<br>sum 和</p>
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>dbadmin是steem网站的管理平台，使用Ruby on Rails, activeadmin编写，是假设steem必须的一个项目</p>
+<ul>
+<li>dbadmin <a href="https://github.com/steemit/dbadmin" target="_blank" rel="external">https://github.com/steemit/dbadmin</a> </li>
+<li>activeadmin <a href="https://github.com/activeadmin/activeadmin" target="_blank" rel="external">https://github.com/activeadmin/activeadmin</a></li>
+</ul>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="安装rvm"><a href="#安装rvm" class="headerlink" title="安装rvm"></a>安装rvm</h2><p>ruby要求2.3.1<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB</div><div class="line">\curl <span class="_">-s</span>SL https://get.rvm.io | bash <span class="_">-s</span> stable</div></pre></td></tr></table></figure></p>
+<h2 id="安装Rails"><a href="#安装Rails" class="headerlink" title="安装Rails"></a>安装Rails</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">gem install bundler</div><div class="line">gem install rails</div></pre></td></tr></table></figure>
+<h2 id="安装dbadmin"><a href="#安装dbadmin" class="headerlink" title="安装dbadmin"></a>安装dbadmin</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">clone</span> https://github.com/steemit/dbadmin</div><div class="line"><span class="built_in">cd</span> dbadmin</div><div class="line"></div><div class="line"><span class="comment"># 安装相关依赖</span></div><div class="line">bundle install</div></pre></td></tr></table></figure>
+<h3 id="修改数据库配置"><a href="#修改数据库配置" class="headerlink" title="修改数据库配置"></a>修改数据库配置</h3><p>app/config/database.yml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">development:</div><div class="line">  &lt;&lt;: *default</div><div class="line">  host: xxx.xxx.xxx.xxx</div><div class="line">  username: xxx</div><div class="line">  password: xxx</div><div class="line">  port: xxx</div></pre></td></tr></table></figure>
+<h3 id="写入数据库"><a href="#写入数据库" class="headerlink" title="写入数据库"></a>写入数据库</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">rake db:migrate RAILS_ENV=development</div><div class="line">rake db:seed</div></pre></td></tr></table></figure>
+<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bundle <span class="built_in">exec</span> unicorn -c config/unicorn.rb <span class="_">-d</span> -E development</div></pre></td></tr></table></figure>
+<h1 id="一些问题"><a href="#一些问题" class="headerlink" title="一些问题"></a>一些问题</h1><h2 id="GeoLite2-City-mmdb"><a href="#GeoLite2-City-mmdb" class="headerlink" title="GeoLite2-City.mmdb"></a>GeoLite2-City.mmdb</h2><p>异常：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dbadmin/app/models/user.rb:6:in `initialize&apos;: GeoIP2Compat - Error opening the specified MaxMind DB file: /xxx/dbadmin/GeoLite2-City.mmdb (GeoIP2Compat::Error)</div></pre></td></tr></table></figure></p>
+<p>下载：<a href="http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz" target="_blank" rel="external">http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz</a><br>解压后放到dbadmin/目录下，文件名GeoLite2-City.mmdb</p>
+<h2 id="找不到-libmysqlclient-18-dylib"><a href="#找不到-libmysqlclient-18-dylib" class="headerlink" title="找不到 libmysqlclient.18.dylib"></a>找不到 libmysqlclient.18.dylib</h2><p>异常：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/xxx/.rvm/gems/ruby-2.3.1/gems/mysql2-0.4.4/lib/mysql2.rb:31:in `require&apos;: dlopen(/xxx/.rvm/gems/ruby-2.3.1/gems/mysql2-0.4.4/lib/mysql2/mysql2.bundle, 9): Library not loaded: libmysqlclient.18.dylib  (LoadError)</div></pre></td></tr></table></figure></p>
+<p>解决方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo ln -s /usr/local/mysql/lib/libmysqlclient.18.dylib /usr/lib/libmysqlclient.18.dylib</div></pre></td></tr></table></figure></p>
+<p>如果是mac, 上面一第命令执行失败，提示Operation not permitted，就需要关闭Rootless机制</p>
+<p>重启按住 Command+R，进入恢复模式，打开Terminal</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">csrutil disable</div></pre></td></tr></table></figure>
+<p>重启即可。如果要恢复默认，那么</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">csrutil enable</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -385,11 +392,13 @@
       
         <div class="post-tags">
           
-            <a href="/tags/笔记/" rel="tag"># 笔记</a>
+            <a href="/tags/steem/" rel="tag"># steem</a>
           
-            <a href="/tags/mysql/" rel="tag"># mysql</a>
+            <a href="/tags/dbadmin/" rel="tag"># dbadmin</a>
           
-            <a href="/tags/function/" rel="tag"># function</a>
+            <a href="/tags/install/" rel="tag"># install</a>
+          
+            <a href="/tags/安装/" rel="tag"># 安装</a>
           
         </div>
       
@@ -402,8 +411,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/05/2015-05-linux-permissions/" rel="next" title="linux 文件系统权限笔记">
-                <i class="fa fa-chevron-left"></i> linux 文件系统权限笔记
+              <a href="/2017/07/zabbix-install/" rel="next" title="Zabbix">
+                <i class="fa fa-chevron-left"></i> Zabbix
               </a>
             
           </div>
@@ -411,10 +420,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/09/2016-09-mysql-explain/" rel="prev" title="Mysql性能分析">
-                Mysql性能分析 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -548,7 +553,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#字符串函数"><span class="nav-number">1.</span> <span class="nav-text">字符串函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#时间和日期处理函数"><span class="nav-number">2.</span> <span class="nav-text">时间和日期处理函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用的数值处理函数"><span class="nav-number">3.</span> <span class="nav-text">常用的数值处理函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#聚集函数"><span class="nav-number">4.</span> <span class="nav-text">聚集函数</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装rvm"><span class="nav-number">2.1.</span> <span class="nav-text">安装rvm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Rails"><span class="nav-number">2.2.</span> <span class="nav-text">安装Rails</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装dbadmin"><span class="nav-number">2.3.</span> <span class="nav-text">安装dbadmin</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#修改数据库配置"><span class="nav-number">2.3.1.</span> <span class="nav-text">修改数据库配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写入数据库"><span class="nav-number">2.3.2.</span> <span class="nav-text">写入数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动"><span class="nav-number">2.3.3.</span> <span class="nav-text">启动</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些问题"><span class="nav-number">3.</span> <span class="nav-text">一些问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GeoLite2-City-mmdb"><span class="nav-number">3.1.</span> <span class="nav-text">GeoLite2-City.mmdb</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#找不到-libmysqlclient-18-dylib"><span class="nav-number">3.2.</span> <span class="nav-text">找不到 libmysqlclient.18.dylib</span></a></li></ol></li></ol></div>
             
 
           </div>

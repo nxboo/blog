@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.boshu.org/"/>
-  <updated>2017-07-04T10:08:20.000Z</updated>
+  <updated>2017-07-07T07:58:49.000Z</updated>
   <id>http://blog.boshu.org/</id>
   
   <author>
@@ -16,11 +16,58 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Zabbix install</title>
+    <title>Steem dbadmin安装</title>
+    <link href="http://blog.boshu.org/2017/07/dbadmin/"/>
+    <id>http://blog.boshu.org/2017/07/dbadmin/</id>
+    <published>2017-07-07T07:23:39.000Z</published>
+    <updated>2017-07-07T07:58:49.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>dbadmin是steem网站的管理平台，使用Ruby on Rails, activeadmin编写，是假设steem必须的一个项目</p>
+<ul>
+<li>dbadmin <a href="https://github.com/steemit/dbadmin" target="_blank" rel="external">https://github.com/steemit/dbadmin</a> </li>
+<li>activeadmin <a href="https://github.com/activeadmin/activeadmin" target="_blank" rel="external">https://github.com/activeadmin/activeadmin</a></li>
+</ul>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="安装rvm"><a href="#安装rvm" class="headerlink" title="安装rvm"></a>安装rvm</h2><p>ruby要求2.3.1<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB</div><div class="line">\curl <span class="_">-s</span>SL https://get.rvm.io | bash <span class="_">-s</span> stable</div></pre></td></tr></table></figure></p>
+<h2 id="安装Rails"><a href="#安装Rails" class="headerlink" title="安装Rails"></a>安装Rails</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">gem install bundler</div><div class="line">gem install rails</div></pre></td></tr></table></figure>
+<h2 id="安装dbadmin"><a href="#安装dbadmin" class="headerlink" title="安装dbadmin"></a>安装dbadmin</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">clone</span> https://github.com/steemit/dbadmin</div><div class="line"><span class="built_in">cd</span> dbadmin</div><div class="line"></div><div class="line"><span class="comment"># 安装相关依赖</span></div><div class="line">bundle install</div></pre></td></tr></table></figure>
+<h3 id="修改数据库配置"><a href="#修改数据库配置" class="headerlink" title="修改数据库配置"></a>修改数据库配置</h3><p>app/config/database.yml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">development:</div><div class="line">  &lt;&lt;: *default</div><div class="line">  host: xxx.xxx.xxx.xxx</div><div class="line">  username: xxx</div><div class="line">  password: xxx</div><div class="line">  port: xxx</div></pre></td></tr></table></figure>
+<h3 id="写入数据库"><a href="#写入数据库" class="headerlink" title="写入数据库"></a>写入数据库</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">rake db:migrate RAILS_ENV=development</div><div class="line">rake db:seed</div></pre></td></tr></table></figure>
+<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bundle <span class="built_in">exec</span> unicorn -c config/unicorn.rb <span class="_">-d</span> -E development</div></pre></td></tr></table></figure>
+<h1 id="一些问题"><a href="#一些问题" class="headerlink" title="一些问题"></a>一些问题</h1><h2 id="GeoLite2-City-mmdb"><a href="#GeoLite2-City-mmdb" class="headerlink" title="GeoLite2-City.mmdb"></a>GeoLite2-City.mmdb</h2><p>异常：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dbadmin/app/models/user.rb:6:in `initialize&apos;: GeoIP2Compat - Error opening the specified MaxMind DB file: /xxx/dbadmin/GeoLite2-City.mmdb (GeoIP2Compat::Error)</div></pre></td></tr></table></figure></p>
+<p>下载：<a href="http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz" target="_blank" rel="external">http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz</a><br>解压后放到dbadmin/目录下，文件名GeoLite2-City.mmdb</p>
+<h2 id="找不到-libmysqlclient-18-dylib"><a href="#找不到-libmysqlclient-18-dylib" class="headerlink" title="找不到 libmysqlclient.18.dylib"></a>找不到 libmysqlclient.18.dylib</h2><p>异常：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/xxx/.rvm/gems/ruby-2.3.1/gems/mysql2-0.4.4/lib/mysql2.rb:31:in `require&apos;: dlopen(/xxx/.rvm/gems/ruby-2.3.1/gems/mysql2-0.4.4/lib/mysql2/mysql2.bundle, 9): Library not loaded: libmysqlclient.18.dylib  (LoadError)</div></pre></td></tr></table></figure></p>
+<p>解决方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo ln -s /usr/local/mysql/lib/libmysqlclient.18.dylib /usr/lib/libmysqlclient.18.dylib</div></pre></td></tr></table></figure></p>
+<p>如果是mac, 上面一第命令执行失败，提示Operation not permitted，就需要关闭Rootless机制</p>
+<p>重启按住 Command+R，进入恢复模式，打开Terminal</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">csrutil disable</div></pre></td></tr></table></figure>
+<p>重启即可。如果要恢复默认，那么</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">csrutil enable</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h1&gt;&lt;p&gt;dbadmin是steem网站的管理平台，使用Ruby on Rails, activeadmin编写，是假设steem必须的一个项目&lt;/p
+    
+    </summary>
+    
+    
+      <category term="steem" scheme="http://blog.boshu.org/tags/steem/"/>
+    
+      <category term="dbadmin" scheme="http://blog.boshu.org/tags/dbadmin/"/>
+    
+      <category term="install" scheme="http://blog.boshu.org/tags/install/"/>
+    
+      <category term="安装" scheme="http://blog.boshu.org/tags/%E5%AE%89%E8%A3%85/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Zabbix</title>
     <link href="http://blog.boshu.org/2017/07/zabbix-install/"/>
     <id>http://blog.boshu.org/2017/07/zabbix-install/</id>
     <published>2017-07-03T07:08:38.000Z</published>
-    <updated>2017-07-04T10:08:20.000Z</updated>
+    <updated>2017-07-04T10:12:04.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> ~/tmp/</div><div class="line"></div><div class="line"><span class="comment">#下载</span></div><div class="line">wget https://jaist.dl.sourceforge.net/project/zabbix/ZABBIX%20Latest%20Stable/3.0.9/zabbix-3.0.9.tar.gz</div><div class="line">tar -zxvf zabbix-3.0.9.tar.gz</div><div class="line"><span class="built_in">cd</span> zabbix-3.0.9</div><div class="line"></div><div class="line"><span class="comment">#编译安装server和agent</span></div><div class="line">./configure --prefix=/xxx/zabbix --enable-server --enable-agent --with-mysql --with-libcurl</div><div class="line">make</div><div class="line">make install</div><div class="line"></div><div class="line"><span class="comment">#导入数据</span></div><div class="line"><span class="built_in">cd</span> database;</div><div class="line"></div><div class="line"><span class="comment">#导入数据，导入顺序错误，可能会报错</span></div><div class="line">mysql -h&#123;host&#125; -P&#123;port&#125; -u&#123;user&#125; -p&#123;password&#125; &#123;dbname&#125; &lt; mysql/schema.sql</div><div class="line">mysql -h&#123;host&#125; -P&#123;port&#125; -u&#123;user&#125; -p&#123;password&#125; &#123;dbname&#125; &lt; mysql/images.sql</div><div class="line">mysql -h&#123;host&#125; -P&#123;port&#125; -u&#123;user&#125; -p&#123;password&#125; &#123;dbname&#125; &lt; mysql/data.sql</div><div class="line"></div><div class="line"><span class="comment">#复制管理平台到对应目录</span></div><div class="line"><span class="comment">#网有第一次访问的时候有安装向导，会检测服务器配置和输入数据库用户名和密码</span></div><div class="line"><span class="built_in">cd</span> ..</div><div class="line">cp -r frontends/php ~/www/zabbix</div></pre></td></tr></table></figure>
 <h1 id="修改zabbix-server配置"><a href="#修改zabbix-server配置" class="headerlink" title="修改zabbix server配置"></a>修改zabbix server配置</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#日志</div><div class="line">LogFile=/xxx/server.log</div><div class="line"></div><div class="line">#数据库相关配置，zabbix无法读取网站的配置，需要单独配置</div><div class="line">DBHost=xxx</div><div class="line">DBName=xxx</div><div class="line">DBUser=xxx</div><div class="line">DBPassword=xxx</div><div class="line">DBPort=xxx</div></pre></td></tr></table></figure>
