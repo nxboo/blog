@@ -6,15 +6,15 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -32,7 +32,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -66,54 +66,41 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="mysql,性能," />
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
 
 
-
-
-
-  <link rel="alternate" href="/atom.xml" title="Bin blog" type="application/atom+xml" />
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+  <meta name="keywords" content="mysql,性能,">
 
 
 
 
 
+  <link rel="alternate" href="/atom.xml" title="Bin blog" type="application/atom+xml">
 
-<meta name="description" content="#Mysql性能分析
-执行mysql语句，只要在前面加上 explain 就可以分析查询语句的效率。
-例如：1explain select focus_uid from user_focus where uid = xxx;
-explain显示了mysql如何使用索引来处理select语句以及连接表。可以帮助选择更好的索引和写出更优化的查询语句。
-具体解释如下：
-id 本次 select 的标识符">
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="#Mysql性能分析 执行mysql语句，只要在前面加上 explain 就可以分析查询语句的效率。 例如：1explain select focus_uid from user_focus where uid = xxx; explain显示了mysql如何使用索引来处理select语句以及连接表。可以帮助选择更好的索引和写出更优化的查询语句。 具体解释如下： id 本次 select 的标识符">
+<meta name="keywords" content="mysql,性能">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mysql性能分析">
 <meta property="og:url" content="http://blog.boshu.org/2016/09/2016-09-mysql-explain/index.html">
 <meta property="og:site_name" content="Bin blog">
-<meta property="og:description" content="#Mysql性能分析
-执行mysql语句，只要在前面加上 explain 就可以分析查询语句的效率。
-例如：1explain select focus_uid from user_focus where uid = xxx;
-explain显示了mysql如何使用索引来处理select语句以及连接表。可以帮助选择更好的索引和写出更优化的查询语句。
-具体解释如下：
-id 本次 select 的标识符">
+<meta property="og:description" content="#Mysql性能分析 执行mysql语句，只要在前面加上 explain 就可以分析查询语句的效率。 例如：1explain select focus_uid from user_focus where uid = xxx; explain显示了mysql如何使用索引来处理select语句以及连接表。可以帮助选择更好的索引和写出更优化的查询语句。 具体解释如下： id 本次 select 的标识符">
+<meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2017-03-27T06:33:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mysql性能分析">
-<meta name="twitter:description" content="#Mysql性能分析
-执行mysql语句，只要在前面加上 explain 就可以分析查询语句的效率。
-例如：1explain select focus_uid from user_focus where uid = xxx;
-explain显示了mysql如何使用索引来处理select语句以及连接表。可以帮助选择更好的索引和写出更优化的查询语句。
-具体解释如下：
-id 本次 select 的标识符">
+<meta name="twitter:description" content="#Mysql性能分析 执行mysql语句，只要在前面加上 explain 就可以分析查询语句的效率。 例如：1explain select focus_uid from user_focus where uid = xxx; explain显示了mysql如何使用索引来处理select语句以及连接表。可以帮助选择更好的索引和写出更优化的查询语句。 具体解释如下： id 本次 select 的标识符">
 
 
 
@@ -141,7 +128,7 @@ id 本次 select 的标识符">
 
 
 
-  <link rel="canonical" href="http://blog.boshu.org/2016/09/2016-09-mysql-explain/"/>
+  <link rel="canonical" href="http://blog.boshu.org/2016/09/2016-09-mysql-explain/">
 
 
 
@@ -191,7 +178,7 @@ id 本次 select 的标识符">
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">Bin blog</span>
         <span class="logo-line-after"><i></i></span>
@@ -221,7 +208,7 @@ id 本次 select 的标识符">
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -231,7 +218,7 @@ id 本次 select 的标识符">
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -241,7 +228,7 @@ id 本次 select 的标识符">
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
             标签
           </a>
@@ -280,7 +267,7 @@ id 本次 select 的标识符">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Bin">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/uploads/avatar.png">
     </span>
 
@@ -350,7 +337,7 @@ id 本次 select 的标识符">
       
         <p>#Mysql性能分析</p>
 <p>执行mysql语句，只要在前面加上 explain 就可以分析查询语句的效率。</p>
-<p>例如：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">explain</span> <span class="keyword">select</span> focus_uid <span class="keyword">from</span> user_focus <span class="keyword">where</span> uid = xxx;</div></pre></td></tr></table></figure></p>
+<p>例如：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> focus_uid <span class="keyword">from</span> user_focus <span class="keyword">where</span> uid = xxx;</span><br></pre></td></tr></table></figure></p>
 <p>explain显示了mysql如何使用索引来处理select语句以及连接表。可以帮助选择更好的索引和写出更优化的查询语句。</p>
 <p>具体解释如下：</p>
 <p>id 本次 select 的标识符。在查询中每个 select都有一个顺序的数值。<br>select_type select 的类型，可能会有以下几种：</p>
@@ -501,9 +488,7 @@ id 本次 select 的标识符">
 
       <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/uploads/avatar.png"
-               alt="Bin" />
+          <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="Bin">
           <p class="site-author-name" itemprop="name">Bin</p>
            
               <p class="site-description motion-element" itemprop="description"></p>
@@ -578,10 +563,10 @@ id 本次 select 的标识符">
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
+        <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-Bin"></i>
   </span>

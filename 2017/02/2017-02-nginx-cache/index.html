@@ -6,15 +6,15 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -32,7 +32,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -66,42 +66,41 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="nginx,cache," />
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
 
 
-
-
-
-  <link rel="alternate" href="/atom.xml" title="Bin blog" type="application/atom+xml" />
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+  <meta name="keywords" content="nginx,cache,">
 
 
 
 
 
+  <link rel="alternate" href="/atom.xml" title="Bin blog" type="application/atom+xml">
 
-<meta name="description" content="相关参数fastcgi_cache_path
-syntax: fastcgi_cache_path path [ levels = levels ] keys_zone = name : size [ inactive = time ] [ max_size = size ] [ loader_files = number ] [ &amp;gt; loader_sleep = time ] [ load">
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="相关参数fastcgi_cache_path syntax: fastcgi_cache_path path [ levels = levels ] keys_zone = name : size [ inactive = time ] [ max_size = size ] [ loader_files = number ] [ &amp;gt; loader_sleep = time ] [ load">
+<meta name="keywords" content="nginx,cache">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Nginx fastcgi cache">
 <meta property="og:url" content="http://blog.boshu.org/2017/02/2017-02-nginx-cache/index.html">
 <meta property="og:site_name" content="Bin blog">
-<meta property="og:description" content="相关参数fastcgi_cache_path
-syntax: fastcgi_cache_path path [ levels = levels ] keys_zone = name : size [ inactive = time ] [ max_size = size ] [ loader_files = number ] [ &amp;gt; loader_sleep = time ] [ load">
+<meta property="og:description" content="相关参数fastcgi_cache_path syntax: fastcgi_cache_path path [ levels = levels ] keys_zone = name : size [ inactive = time ] [ max_size = size ] [ loader_files = number ] [ &amp;gt; loader_sleep = time ] [ load">
+<meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2017-06-26T06:36:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx fastcgi cache">
-<meta name="twitter:description" content="相关参数fastcgi_cache_path
-syntax: fastcgi_cache_path path [ levels = levels ] keys_zone = name : size [ inactive = time ] [ max_size = size ] [ loader_files = number ] [ &amp;gt; loader_sleep = time ] [ load">
+<meta name="twitter:description" content="相关参数fastcgi_cache_path syntax: fastcgi_cache_path path [ levels = levels ] keys_zone = name : size [ inactive = time ] [ max_size = size ] [ loader_files = number ] [ &amp;gt; loader_sleep = time ] [ load">
 
 
 
@@ -129,7 +128,7 @@ syntax: fastcgi_cache_path path [ levels = levels ] keys_zone = name : size [ in
 
 
 
-  <link rel="canonical" href="http://blog.boshu.org/2017/02/2017-02-nginx-cache/"/>
+  <link rel="canonical" href="http://blog.boshu.org/2017/02/2017-02-nginx-cache/">
 
 
 
@@ -179,7 +178,7 @@ syntax: fastcgi_cache_path path [ levels = levels ] keys_zone = name : size [ in
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">Bin blog</span>
         <span class="logo-line-after"><i></i></span>
@@ -209,7 +208,7 @@ syntax: fastcgi_cache_path path [ levels = levels ] keys_zone = name : size [ in
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -219,7 +218,7 @@ syntax: fastcgi_cache_path path [ levels = levels ] keys_zone = name : size [ in
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -229,7 +228,7 @@ syntax: fastcgi_cache_path path [ levels = levels ] keys_zone = name : size [ in
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
             标签
           </a>
@@ -268,7 +267,7 @@ syntax: fastcgi_cache_path path [ levels = levels ] keys_zone = name : size [ in
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Bin">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/uploads/avatar.png">
     </span>
 
@@ -339,7 +338,7 @@ syntax: fastcgi_cache_path path [ levels = levels ] keys_zone = name : size [ in
         <h1 id="相关参数"><a href="#相关参数" class="headerlink" title="相关参数"></a>相关参数</h1><h2 id="fastcgi-cache-path"><a href="#fastcgi-cache-path" class="headerlink" title="fastcgi_cache_path"></a>fastcgi_cache_path</h2><blockquote>
 <p>syntax: fastcgi_cache_path path [ levels = levels ] keys_zone = name : size [ inactive = time ] [ max_size = size ] [ loader_files = number ] [ &gt; loader_sleep = time ] [ loader_threshold = time ]<br>default: none<br>context: http</p>
 </blockquote>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">fastcgi_cache_path</span> /dev/shm/nginx_cache levels=<span class="number">1</span>:<span class="number">2</span> keys_zone=fcgicache:<span class="number">10m</span> inactive=<span class="number">50m</span> max_size=<span class="number">128m</span>;</div></pre></td></tr></table></figure>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">fastcgi_cache_path</span> /dev/shm/nginx_cache levels=<span class="number">1</span>:<span class="number">2</span> keys_zone=fcgicache:<span class="number">10m</span> inactive=<span class="number">50m</span> max_size=<span class="number">128m</span>;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>/tmp/nginx/fcgi/cache 缓存目录</li>
 <li>keys_zone=fcgicache:10m keys_zone是这个缓存空间的名字，10m是用多少内存（主要缓存key和文件元信息，不会缓存页面）,这个会在fastcgi_cache中引用</li>
@@ -355,11 +354,11 @@ syntax: fastcgi_cache_path path [ levels = levels ] keys_zone = name : size [ in
 <p>Syntax:    fastcgi_cache zone | off;<br>Default: off;<br>Context:    http, server, location</p>
 </blockquote>
 <p>用哪个缓存空间，fastcgi_cache_path定义</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">fastcgi_cache</span> fcgicache;</div></pre></td></tr></table></figure>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">fastcgi_cache</span> fcgicache;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>Syntax:    fastcgi_cache_key string;<br>Default:    —<br>Context:    http, server, location</p>
 </blockquote>
-<p>设置缓存的key<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">fastcgi_cache_key</span> <span class="string">"<span class="variable">$scheme</span><span class="variable">$request_method</span><span class="variable">$host</span><span class="variable">$request_uri</span>"</span>;</div></pre></td></tr></table></figure></p>
+<p>设置缓存的key<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">fastcgi_cache_key</span> <span class="string">"<span class="variable">$scheme</span><span class="variable">$request_method</span><span class="variable">$host</span><span class="variable">$request_uri</span>"</span>;</span><br></pre></td></tr></table></figure></p>
 <p>建议：在http层定义一个，如果在server或location要修改的必要，再进行修改</p>
 <h2 id="fastcgi-cache-methods"><a href="#fastcgi-cache-methods" class="headerlink" title="fastcgi_cache_methods"></a>fastcgi_cache_methods</h2><blockquote>
 <p>Syntax:      fastcgi_cache_methods GET | HEAD | POST …;<br>Default:  GET HEAD;<br>Context:  http, server, location</p>
@@ -372,11 +371,11 @@ syntax: fastcgi_cache_path path [ levels = levels ] keys_zone = name : size [ in
 <h2 id="fastcgi-cache-use-stale"><a href="#fastcgi-cache-use-stale" class="headerlink" title="fastcgi_cache_use_stale"></a>fastcgi_cache_use_stale</h2><blockquote>
 <p>syntax: fastcgi_cache_use_stale [error | timeout | invalid_header | updating | http_500 | http_503 | http_403 | http_404 | off]<br>default: fastcgi_cache_use_stale off;<br>context: http, server, location</p>
 </blockquote>
-<p>定义哪些情况下用过期缓存<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">fastcgi_cache_use_stale</span> <span class="literal">error</span> timeout invalid_header http_500 http_503 updating;</div></pre></td></tr></table></figure></p>
+<p>定义哪些情况下用过期缓存<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">fastcgi_cache_use_stale</span> <span class="literal">error</span> timeout invalid_header http_500 http_503 updating;</span><br></pre></td></tr></table></figure></p>
 <h2 id="fastcgi-cache-valid"><a href="#fastcgi-cache-valid" class="headerlink" title="fastcgi_cache_valid"></a>fastcgi_cache_valid</h2><blockquote>
 <p>Syntax:    fastcgi_cache_valid [code …] time;<br>Default:    —<br>Context:    http, server, location</p>
 </blockquote>
-<p>针对不同的状态，设置不同的缓存时间，可多行<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">fastcgi_cache_valid</span> <span class="number">200</span> <span class="number">302</span>  <span class="number">10m</span>;</div><div class="line"><span class="attribute">fastcgi_cache_valid</span> <span class="number">301</span>      <span class="number">1h</span>;</div><div class="line"><span class="attribute">fastcgi_cache_valid</span> any      <span class="number">1m</span>;</div><div class="line"><span class="attribute">fastcgi_cache_valid</span> <span class="number">1m</span>;  <span class="comment">#等同于 fastcgi_cache_valid 200 301 302 1m;</span></div></pre></td></tr></table></figure></p>
+<p>针对不同的状态，设置不同的缓存时间，可多行<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">fastcgi_cache_valid</span> <span class="number">200</span> <span class="number">302</span>  <span class="number">10m</span>;</span><br><span class="line"><span class="attribute">fastcgi_cache_valid</span> <span class="number">301</span>      <span class="number">1h</span>;</span><br><span class="line"><span class="attribute">fastcgi_cache_valid</span> any      <span class="number">1m</span>;</span><br><span class="line"><span class="attribute">fastcgi_cache_valid</span> <span class="number">1m</span>;  <span class="comment">#等同于 fastcgi_cache_valid 200 301 302 1m;</span></span><br></pre></td></tr></table></figure></p>
 <h1 id="在响应头中设置缓存时间"><a href="#在响应头中设置缓存时间" class="headerlink" title="在响应头中设置缓存时间"></a>在响应头中设置缓存时间</h1><p>缓存的参数也可以直接在响应头中设置。这比使用指令设置缓存时间具有更高的优先级。</p>
 <ul>
 <li>“X-Accel-Expires”标头字段设置响应的缓存时间（以秒为单位）。零禁用缓存。如果值以@前缀开始，则它设置以当前时间开始的以秒为单位的绝对时间，直到响应可以被缓存。</li>
@@ -391,8 +390,8 @@ syntax: fastcgi_cache_path path [ levels = levels ] keys_zone = name : size [ in
 <li>头中Vary * (1.7.7)</li>
 </ul>
 <p>可以使用fastcgi_ignore_headers指令禁用对这些响应头字段中的一个或多个的处理。</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">fastcgi_ignore_headers</span> Expires Cache-Control;</div><div class="line"><span class="attribute">fastcgi_ignore_headers</span> Set-Cookie; <span class="comment">#如果加入这条，则后端无法设置cookie,session</span></div></pre></td></tr></table></figure>
-<h1 id="配置实例"><a href="#配置实例" class="headerlink" title="配置实例"></a>配置实例</h1><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">http&#123;</div><div class="line">  #...</div><div class="line">  fastcgi_cache_path /dev/shm/nginx_cache levels=1:2 keys_zone=fcgicache:10m inactive=30m max_size=128m;</div><div class="line">  fastcgi_cache_key  "$scheme$request_method$host$request_uri";</div><div class="line">  fastcgi_temp_path  /dev/shm/nginx_tmp;</div><div class="line">  #...</div><div class="line"></div><div class="line">  server&#123;</div><div class="line">    #...</div><div class="line">    location ~ \.php($|/) &#123;</div><div class="line">        #...</div><div class="line">        fastcgi_cache fcgicache; #用哪个缓存空间</div><div class="line">        fastcgi_cache_valid 1m; #200 301 302缓存1分钟</div><div class="line">        fastcgi_cache_valid 404 500 502 503 504 0s; #404 500 502 503 504不缓存</div><div class="line">        fastcgi_cache_valid any 3h; #其它缓存3小时</div><div class="line">        fastcgi_cache_min_uses 1; #经过一次请求后缓存</div><div class="line">        fastcgi_cache_use_stale error timeout invalid_header http_500 http_503 updating; #哪些情况下用过期缓存</div><div class="line">        fastcgi_ignore_headers Expires Cache-Control; #忽略Expires Cache-Control头</div><div class="line">        #...</div><div class="line">    &#125;</div><div class="line">    #...</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">fastcgi_ignore_headers</span> Expires Cache-Control;</span><br><span class="line"><span class="attribute">fastcgi_ignore_headers</span> Set-Cookie; <span class="comment">#如果加入这条，则后端无法设置cookie,session</span></span><br></pre></td></tr></table></figure>
+<h1 id="配置实例"><a href="#配置实例" class="headerlink" title="配置实例"></a>配置实例</h1><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">http&#123;</span><br><span class="line">  <span class="comment">#...</span></span><br><span class="line">  <span class="attribute">fastcgi_cache_path</span> /dev/shm/nginx_cache levels=<span class="number">1</span>:<span class="number">2</span> keys_zone=fcgicache:<span class="number">10m</span> inactive=<span class="number">30m</span> max_size=<span class="number">128m</span>;</span><br><span class="line">  <span class="attribute">fastcgi_cache_key</span>  <span class="string">"<span class="variable">$scheme</span><span class="variable">$request_method</span><span class="variable">$host</span><span class="variable">$request_uri</span>"</span>;</span><br><span class="line">  <span class="attribute">fastcgi_temp_path</span>  /dev/shm/nginx_tmp;</span><br><span class="line">  <span class="comment">#...</span></span><br><span class="line"></span><br><span class="line">  server&#123;</span><br><span class="line">    <span class="comment">#...</span></span><br><span class="line">    <span class="attribute">location</span> <span class="regexp">~ \.php($|/)</span> &#123;</span><br><span class="line">        <span class="comment">#...</span></span><br><span class="line">        <span class="attribute">fastcgi_cache</span> fcgicache; <span class="comment">#用哪个缓存空间</span></span><br><span class="line">        <span class="attribute">fastcgi_cache_valid</span> <span class="number">1m</span>; <span class="comment">#200 301 302缓存1分钟</span></span><br><span class="line">        <span class="attribute">fastcgi_cache_valid</span> <span class="number">404</span> <span class="number">500</span> <span class="number">502</span> <span class="number">503</span> <span class="number">504</span> <span class="number">0s</span>; <span class="comment">#404 500 502 503 504不缓存</span></span><br><span class="line">        <span class="attribute">fastcgi_cache_valid</span> any <span class="number">3h</span>; <span class="comment">#其它缓存3小时</span></span><br><span class="line">        <span class="attribute">fastcgi_cache_min_uses</span> <span class="number">1</span>; <span class="comment">#经过一次请求后缓存</span></span><br><span class="line">        <span class="attribute">fastcgi_cache_use_stale</span> <span class="literal">error</span> timeout invalid_header http_500 http_503 updating; <span class="comment">#哪些情况下用过期缓存</span></span><br><span class="line">        <span class="attribute">fastcgi_ignore_headers</span> Expires Cache-Control; <span class="comment">#忽略Expires Cache-Control头</span></span><br><span class="line">        <span class="comment">#...</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">#...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h1><ul>
 <li>$upstream_response_time为过期时间</li>
 <li>$upstream_cache_status 表示此请求响应来自cache的状态</li>
@@ -423,10 +422,10 @@ syntax: fastcgi_cache_path path [ levels = levels ] keys_zone = name : size [ in
 </tr>
 </tbody>
 </table>
-<h1 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h1><p>逐个测试，测试时，注释其他的<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">header(<span class="string">"Expires: "</span>.gmdate(<span class="string">"D, d M Y H:i:s"</span>, time()+<span class="number">10000</span>).<span class="string">' GMT'</span>);</div><div class="line">header(<span class="string">"Expires: "</span>.gmdate(<span class="string">"D, d M Y H:i:s"</span>, time()<span class="number">-99999</span>).<span class="string">' GMT'</span>);</div><div class="line">header(<span class="string">"X-Accel-Expires:5"</span>); <span class="comment">// 5s</span></div><div class="line">header(<span class="string">"Cache-Control: no-cache"</span>); <span class="comment">//no cache</span></div><div class="line">header(<span class="string">"Cache-Control: no-store"</span>); <span class="comment">//no cache</span></div><div class="line">header(<span class="string">"Cache-Control: private"</span>); <span class="comment">//no cache</span></div><div class="line">header(<span class="string">"Cache-Control: max-age=10"</span>); <span class="comment">//cache 10s</span></div><div class="line">setcookie(<span class="string">'hello'</span>,<span class="string">"testaaaa"</span>); <span class="comment">//no cache</span></div><div class="line"><span class="keyword">echo</span> date(<span class="string">"Y-m-d H:i:s"</span>,time());</div><div class="line"><span class="keyword">exit</span>;</div></pre></td></tr></table></figure></p>
+<h1 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h1><p>逐个测试，测试时，注释其他的<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">header(<span class="string">"Expires: "</span>.gmdate(<span class="string">"D, d M Y H:i:s"</span>, time()+<span class="number">10000</span>).<span class="string">' GMT'</span>);</span><br><span class="line">header(<span class="string">"Expires: "</span>.gmdate(<span class="string">"D, d M Y H:i:s"</span>, time()<span class="number">-99999</span>).<span class="string">' GMT'</span>);</span><br><span class="line">header(<span class="string">"X-Accel-Expires:5"</span>); <span class="comment">// 5s</span></span><br><span class="line">header(<span class="string">"Cache-Control: no-cache"</span>); <span class="comment">//no cache</span></span><br><span class="line">header(<span class="string">"Cache-Control: no-store"</span>); <span class="comment">//no cache</span></span><br><span class="line">header(<span class="string">"Cache-Control: private"</span>); <span class="comment">//no cache</span></span><br><span class="line">header(<span class="string">"Cache-Control: max-age=10"</span>); <span class="comment">//cache 10s</span></span><br><span class="line">setcookie(<span class="string">'hello'</span>,<span class="string">"testaaaa"</span>); <span class="comment">//no cache</span></span><br><span class="line"><span class="keyword">echo</span> date(<span class="string">"Y-m-d H:i:s"</span>,time());</span><br><span class="line"><span class="keyword">exit</span>;</span><br></pre></td></tr></table></figure></p>
 <p>程序调用session_start时，php的session拓展自己输出的。session.cache_limit参数来决定输出包含哪种Expires的header，默认是nocache，修改php.ini的session.cache_limit参数为“none”即可让session模块不再输出这些http 响应头。或在调用session_start之前，使用session_cache_limiter函数来指定下该参数值。那为什么要在使用session时，发Expires、Cache-Control的http response header呢？我猜测了下，需要session时，基本上是用户跟服务器有交互，那么，既然有交互，就意味着用户的每次交互结果也可能不一样，就不能cache这个请求的结果，给返回给这个用户。同时，每个用户的交互结果都是不一样的，nginx也就不能把包含特殊Cache-Control的个人响应cache给其他人提供了。  </p>
 <p>非要用session_start 可以如下方式</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">session_cache_limiter(<span class="string">"none"</span>);</div><div class="line">session_start();</div><div class="line"><span class="keyword">echo</span> date(<span class="string">"Y-m-d H:i:s"</span>,time());</div><div class="line"><span class="keyword">exit</span>;</div></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">session_cache_limiter(<span class="string">"none"</span>);</span><br><span class="line">session_start();</span><br><span class="line"><span class="keyword">echo</span> date(<span class="string">"Y-m-d H:i:s"</span>,time());</span><br><span class="line"><span class="keyword">exit</span>;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -527,7 +526,7 @@ syntax: fastcgi_cache_path path [ levels = levels ] keys_zone = name : size [ in
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
@@ -538,9 +537,7 @@ syntax: fastcgi_cache_path path [ levels = levels ] keys_zone = name : size [ in
 
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/uploads/avatar.png"
-               alt="Bin" />
+          <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="Bin">
           <p class="site-author-name" itemprop="name">Bin</p>
            
               <p class="site-description motion-element" itemprop="description"></p>
@@ -631,10 +628,10 @@ syntax: fastcgi_cache_path path [ levels = levels ] keys_zone = name : size [ in
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
+        <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-Bin"></i>
   </span>
