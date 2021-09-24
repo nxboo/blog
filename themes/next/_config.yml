@@ -6,7 +6,7 @@
 favicon: /favicon.ico
 
 # Set default keywords (Use a comma to separate)
-keywords: "Hexo, NexT"
+keywords: "bin,大熊哥"
 
 # Set rss to false to disable feed link.
 # Leave rss as empty to use site's feed link.
@@ -28,7 +28,7 @@ copyright: true
 canonical: true
 
 # Change headers hierarchy on site-subtitle (will be main site description) and on all post/pages titles for better SEO-optimization.
-seo: false
+seo: true
 
 # ---------------------------------------------------------------
 # Menu Settings
@@ -282,7 +282,7 @@ mathjax:
 baidu_analytics: c9a39e0e797d05a20d8013a13323d38f
 
 # Duoshuo ShortName
-duoshuo_shortname: binx
+# duoshuo_shortname: binx
 
 # Disqus
 #disqus_shortname:
@@ -295,7 +295,7 @@ duoshuo_shortname: binx
 
 # Support for youyan comments system.
 # You can get your uid from http://www.uyan.cc
-#youyan_uid: your uid
+youyan_uid: 2138013
 
 # Support for LiveRe comments system.
 # You can get your uid from https://livere.com/insight/myCode (General web site)

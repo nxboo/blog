@@ -1,9 +1,9 @@
 {
-  "name": "bin blog",
+  "name": "bin-blog",
   "version": "0.0.1",
   "private": false,
   "hexo": {
-    "version": "3.2.2"
+    "version": "3.9.0"
   },
   "dependencies": {
     "hexo": "^3.2.0",
