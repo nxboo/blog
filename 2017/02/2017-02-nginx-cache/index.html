@@ -1,0 +1,809 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Roboto Slab:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="nginx,cache," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Bin blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="相关参数fastcgi_cache_path
+syntax: fastcgi_cache_path path [ levels = levels ] keys_zone = name : size [ inactive = time ] [ max_size = size ] [ loader_files = number ] [ &amp;gt; loader_sleep = time ] [ load">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx fastcgi cache">
+<meta property="og:url" content="http://blog.boshu.org/2017/02/2017-02-nginx-cache/index.html">
+<meta property="og:site_name" content="Bin blog">
+<meta property="og:description" content="相关参数fastcgi_cache_path
+syntax: fastcgi_cache_path path [ levels = levels ] keys_zone = name : size [ inactive = time ] [ max_size = size ] [ loader_files = number ] [ &amp;gt; loader_sleep = time ] [ load">
+<meta property="og:updated_time" content="2017-03-05T13:47:50.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nginx fastcgi cache">
+<meta name="twitter:description" content="相关参数fastcgi_cache_path
+syntax: fastcgi_cache_path path [ levels = levels ] keys_zone = name : size [ inactive = time ] [ max_size = size ] [ loader_files = number ] [ &amp;gt; loader_sleep = time ] [ load">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.boshu.org/2017/02/2017-02-nginx-cache/"/>
+
+
+
+
+
+  <title> Nginx fastcgi cache | Bin blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c9a39e0e797d05a20d8013a13323d38f";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Bin blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.boshu.org/2017/02/2017-02-nginx-cache/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Nginx fastcgi cache
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-28T00:00:00+08:00">
+                2017-02-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/02/2017-02-nginx-cache/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/2017-02-nginx-cache/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="相关参数"><a href="#相关参数" class="headerlink" title="相关参数"></a>相关参数</h1><h2 id="fastcgi-cache-path"><a href="#fastcgi-cache-path" class="headerlink" title="fastcgi_cache_path"></a>fastcgi_cache_path</h2><blockquote>
+<p>syntax: fastcgi_cache_path path [ levels = levels ] keys_zone = name : size [ inactive = time ] [ max_size = size ] [ loader_files = number ] [ &gt; loader_sleep = time ] [ loader_threshold = time ]<br>default: none<br>context: http</p>
+</blockquote>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">fastcgi_cache_path</span> /dev/shm/nginx_cache levels=<span class="number">1</span>:<span class="number">2</span> keys_zone=fcgicache:<span class="number">10m</span> inactive=<span class="number">50m</span> max_size=<span class="number">128m</span>;</div></pre></td></tr></table></figure>
+<ul>
+<li>/tmp/nginx/fcgi/cache 缓存目录</li>
+<li>keys_zone=fcgicache:10m keys_zone是这个缓存空间的名字，10m是用多少内存（主要缓存key和文件元信息，不会缓存页面）,这个会在fastcgi_cache中引用</li>
+<li>levels=1:2 设置目录哈希层级，比如2:2会生成256*256个字目录</li>
+<li>inactive 失效时间</li>
+<li>max_size 最多用多少空间</li>
+</ul>
+<h2 id="fastcgi-temp-path"><a href="#fastcgi-temp-path" class="headerlink" title="fastcgi_temp_path"></a>fastcgi_temp_path</h2><blockquote>
+<p>Syntax:    fastcgi_temp_path path [ level1 [ level2 [ level3 ]]]<br>Default:    fastcgi_temp<br>Context:    http server location</p>
+</blockquote>
+<p>生成fastcgi_cache临时文件目录，fastcgi_cache缓存是先写在fastcgi_temp_path再移到fastcgi_cache_path，所以这两个目录最好在同一个分区，从0.8.9之后可以在不同的分区，不过还是建议放同一分区</p>
+<h2 id="fastcgi-cache"><a href="#fastcgi-cache" class="headerlink" title="fastcgi_cache"></a>fastcgi_cache</h2><blockquote>
+<p>Syntax:    fastcgi_cache zone | off;<br>Default: off;<br>Context:    http, server, location</p>
+</blockquote>
+<p>用哪个缓存空间，fastcgi_cache_path定义</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">fastcgi_cache</span> fcgicache;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>Syntax:    fastcgi_cache_key string;<br>Default:    —<br>Context:    http, server, location</p>
+</blockquote>
+<p>设置缓存的key<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">fastcgi_cache_key</span> <span class="string">"<span class="variable">$scheme</span><span class="variable">$request_method</span><span class="variable">$host</span><span class="variable">$request_uri</span>"</span>;</div></pre></td></tr></table></figure></p>
+<p>建议：在http层定义一个，如果在server或location要修改的必要，再进行修改</p>
+<h2 id="fastcgi-cache-methods"><a href="#fastcgi-cache-methods" class="headerlink" title="fastcgi_cache_methods"></a>fastcgi_cache_methods</h2><blockquote>
+<p>Syntax:      fastcgi_cache_methods GET | HEAD | POST …;<br>Default:  GET HEAD;<br>Context:  http, server, location</p>
+</blockquote>
+<p>允许缓存的请求类型</p>
+<h2 id="fastcgi-cache-min-uses"><a href="#fastcgi-cache-min-uses" class="headerlink" title="fastcgi_cache_min_uses"></a>fastcgi_cache_min_uses</h2><blockquote>
+<p>Syntax:    fastcgi_cache_min_uses number;<br>Default:  1;<br>Context:    http, server, location</p>
+</blockquote>
+<p>最少要被请求多少次才会缓存</p>
+<h2 id="fastcgi-cache-use-stale"><a href="#fastcgi-cache-use-stale" class="headerlink" title="fastcgi_cache_use_stale"></a>fastcgi_cache_use_stale</h2><blockquote>
+<p>syntax: fastcgi_cache_use_stale [error | timeout | invalid_header | updating | http_500 | http_503 | http_403 | http_404 | off]<br>default: fastcgi_cache_use_stale off;<br>context: http, server, location</p>
+</blockquote>
+<p>定义哪些情况下用过期缓存<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">fastcgi_cache_use_stale</span> <span class="literal">error</span> timeout invalid_header http_500 http_503 updating;</div></pre></td></tr></table></figure></p>
+<h2 id="fastcgi-cache-valid"><a href="#fastcgi-cache-valid" class="headerlink" title="fastcgi_cache_valid"></a>fastcgi_cache_valid</h2><blockquote>
+<p>Syntax:    fastcgi_cache_valid [code …] time;<br>Default:    —<br>Context:    http, server, location</p>
+</blockquote>
+<p>针对不同的状态，设置不同的缓存时间，可多行<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">fastcgi_cache_valid</span> <span class="number">200</span> <span class="number">302</span>  <span class="number">10m</span>;</div><div class="line"><span class="attribute">fastcgi_cache_valid</span> <span class="number">301</span>      <span class="number">1h</span>;</div><div class="line"><span class="attribute">fastcgi_cache_valid</span> any      <span class="number">1m</span>;</div><div class="line"><span class="attribute">fastcgi_cache_valid</span> <span class="number">1m</span>;  <span class="comment">#等同于 fastcgi_cache_valid 200 301 302 1m;</span></div></pre></td></tr></table></figure></p>
+<h1 id="在响应头中设置缓存时间"><a href="#在响应头中设置缓存时间" class="headerlink" title="在响应头中设置缓存时间"></a>在响应头中设置缓存时间</h1><p>缓存的参数也可以直接在响应头中设置。这比使用指令设置缓存时间具有更高的优先级。</p>
+<ul>
+<li>“X-Accel-Expires”标头字段设置响应的缓存时间（以秒为单位）。零禁用缓存。如果值以@前缀开始，则它设置以当前时间开始的以秒为单位的绝对时间，直到响应可以被缓存。</li>
+<li>如果报头不包括“X-Accel-Expires”字段，则可以在报头字段“Expires”或“Cache-Control”中设置高速缓存的参数。</li>
+<li>如果头包括“Set-Cookie”字段，则这样的响应将不被缓存。</li>
+<li>如果头中Vary *，则这样的响应将不被缓存（1.7.7）。如果报头包括具有另一个值的“Vary”字段，则这样的响应将被缓存，考虑相应的请求报头字段（1.7.7）。</li>
+</ul>
+<h1 id="为什么没有被缓存？"><a href="#为什么没有被缓存？" class="headerlink" title="为什么没有被缓存？"></a>为什么没有被缓存？</h1><ul>
+<li>Nginx fastcgi_cache在缓存后端fastcgi响应时，当响应里包含“set-cookie”时，不缓存;</li>
+<li>当响应头包含Expires时，如果过期时间大于当前服务器时间，则nginx_cache会缓存该响应，否则，则不缓存;</li>
+<li>当响应头包含Cache-Control时，如果Cache-Control参数值为no-cache、no-store、private中任意一个时，则不缓存</li>
+<li>头中Vary * (1.7.7)</li>
+</ul>
+<p>可以使用fastcgi_ignore_headers指令禁用对这些响应头字段中的一个或多个的处理。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">fastcgi_ignore_headers</span> Expires Cache-Control;</div><div class="line"><span class="attribute">fastcgi_ignore_headers</span> Set-Cookie; <span class="comment">#如果加入这条，则后端无法设置cookie,session</span></div></pre></td></tr></table></figure>
+<h1 id="配置实例"><a href="#配置实例" class="headerlink" title="配置实例"></a>配置实例</h1><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">http&#123;</div><div class="line">  #...</div><div class="line">  fastcgi_cache_path /dev/shm/nginx_cache levels=1:2 keys_zone=fcgicache:10m inactive=30m max_size=128m;</div><div class="line">  fastcgi_cache_key  "$scheme$request_method$host$request_uri";</div><div class="line">  fastcgi_temp_path  /dev/shm/nginx_tmp;</div><div class="line">  #...</div><div class="line"></div><div class="line">  server&#123;</div><div class="line">    #...</div><div class="line">    location ~ \.php($|/) &#123;</div><div class="line">        #...</div><div class="line">        fastcgi_cache fcgicache; #用哪个缓存空间</div><div class="line">        fastcgi_cache_valid 1m; #200 301 302缓存1分钟</div><div class="line">        fastcgi_cache_valid 404 500 502 503 504 0s; #404 500 502 503 504不缓存</div><div class="line">        fastcgi_cache_valid any 3h; #其它缓存3小时</div><div class="line">        fastcgi_cache_min_uses 1; #经过一次请求后缓存</div><div class="line">        fastcgi_cache_use_stale error timeout invalid_header http_500 http_503 updating; #哪些情况下用过期缓存</div><div class="line">        fastcgi_ignore_headers Expires Cache-Control; #忽略Expires Cache-Control头</div><div class="line">        #...</div><div class="line">    &#125;</div><div class="line">    #...</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h1><ul>
+<li>$upstream_response_time为过期时间</li>
+<li>$upstream_cache_status 表示此请求响应来自cache的状态</li>
+</ul>
+<h2 id="缓存状态："><a href="#缓存状态：" class="headerlink" title="缓存状态："></a>缓存状态：</h2><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MISS</td>
+<td>未命中</td>
+</tr>
+<tr>
+<td>EXPIRED</td>
+<td>expired, request was passed to backend Cache已过期</td>
+</tr>
+<tr>
+<td>UPDATING</td>
+<td>expired, stale response was used due to proxy/fastcgi_cache_use_stale updating Cache已过期，(被其他nginx子进程)更新中</td>
+</tr>
+<tr>
+<td>STALE</td>
+<td>expired, stale response was used due to proxy/fastcgi_cache_use_stale Cache已过期，响应数据不合法，被污染HIT 命中cache</td>
+</tr>
+</tbody>
+</table>
+<h1 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h1><p>逐个测试，测试时，注释其他的<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">header(<span class="string">"Expires: "</span>.gmdate(<span class="string">"D, d M Y H:i:s"</span>, time()+<span class="number">10000</span>).<span class="string">' GMT'</span>);</div><div class="line">header(<span class="string">"Expires: "</span>.gmdate(<span class="string">"D, d M Y H:i:s"</span>, time()<span class="number">-99999</span>).<span class="string">' GMT'</span>);</div><div class="line">header(<span class="string">"X-Accel-Expires:5"</span>); <span class="comment">// 5s</span></div><div class="line">header(<span class="string">"Cache-Control: no-cache"</span>); <span class="comment">//no cache</span></div><div class="line">header(<span class="string">"Cache-Control: no-store"</span>); <span class="comment">//no cache</span></div><div class="line">header(<span class="string">"Cache-Control: private"</span>); <span class="comment">//no cache</span></div><div class="line">header(<span class="string">"Cache-Control: max-age=10"</span>); <span class="comment">//cache 10s</span></div><div class="line">setcookie(<span class="string">'hello'</span>,<span class="string">"testaaaa"</span>); <span class="comment">//no cache</span></div><div class="line"><span class="keyword">echo</span> date(<span class="string">"Y-m-d H:i:s"</span>,time());</div><div class="line"><span class="keyword">exit</span>;</div></pre></td></tr></table></figure></p>
+<p>程序调用session_start时，php的session拓展自己输出的。session.cache_limit参数来决定输出包含哪种Expires的header，默认是nocache，修改php.ini的session.cache_limit参数为“none”即可让session模块不再输出这些http 响应头。或在调用session_start之前，使用session_cache_limiter函数来指定下该参数值。那为什么要在使用session时，发Expires、Cache-Control的http response header呢？我猜测了下，需要session时，基本上是用户跟服务器有交互，那么，既然有交互，就意味着用户的每次交互结果也可能不一样，就不能cache这个请求的结果，给返回给这个用户。同时，每个用户的交互结果都是不一样的，nginx也就不能把包含特殊Cache-Control的个人响应cache给其他人提供了。  </p>
+<p>非要用session_start 可以如下方式</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">session_cache_limiter(<span class="string">"none"</span>);</div><div class="line">session_start();</div><div class="line"><span class="keyword">echo</span> date(<span class="string">"Y-m-d H:i:s"</span>,time());</div><div class="line"><span class="keyword">exit</span>;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/nginx/" rel="tag"># nginx</a>
+          
+            <a href="/tags/cache/" rel="tag"># cache</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/2016-09-mysql-explain/" rel="next" title="Mysql性能分析">
+                <i class="fa fa-chevron-left"></i> Mysql性能分析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/linux-cli-skill/" rel="prev" title="linux命令行的一些技巧和脚本收集">
+                linux命令行的一些技巧和脚本收集 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/02/2017-02-nginx-cache/"
+           data-title="Nginx fastcgi cache" data-url="http://blog.boshu.org/2017/02/2017-02-nginx-cache/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="Bin" />
+          <p class="site-author-name" itemprop="name">Bin</p>
+           
+              <p class="site-description motion-element" itemprop="description">随便写写</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#相关参数"><span class="nav-number">1.</span> <span class="nav-text">相关参数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#fastcgi-cache-path"><span class="nav-number">1.1.</span> <span class="nav-text">fastcgi_cache_path</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fastcgi-temp-path"><span class="nav-number">1.2.</span> <span class="nav-text">fastcgi_temp_path</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fastcgi-cache"><span class="nav-number">1.3.</span> <span class="nav-text">fastcgi_cache</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fastcgi-cache-methods"><span class="nav-number">1.4.</span> <span class="nav-text">fastcgi_cache_methods</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fastcgi-cache-min-uses"><span class="nav-number">1.5.</span> <span class="nav-text">fastcgi_cache_min_uses</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fastcgi-cache-use-stale"><span class="nav-number">1.6.</span> <span class="nav-text">fastcgi_cache_use_stale</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fastcgi-cache-valid"><span class="nav-number">1.7.</span> <span class="nav-text">fastcgi_cache_valid</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在响应头中设置缓存时间"><span class="nav-number">2.</span> <span class="nav-text">在响应头中设置缓存时间</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么没有被缓存？"><span class="nav-number">3.</span> <span class="nav-text">为什么没有被缓存？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置实例"><span class="nav-number">4.</span> <span class="nav-text">配置实例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#调试"><span class="nav-number">5.</span> <span class="nav-text">调试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存状态："><span class="nav-number">5.1.</span> <span class="nav-text">缓存状态：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP"><span class="nav-number">6.</span> <span class="nav-text">PHP</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-Bin"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bin</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"binx"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>
