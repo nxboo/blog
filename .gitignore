@@ -3,4 +3,3 @@ node_modules
 .deploy_git
 *.log
 *.tmp
-public/*
